@@ -5,8 +5,10 @@ import by.lifetech.ishop.bean.InfoUser;
 import by.lifetech.ishop.bean.User;
 import by.lifetech.ishop.dao.exception.DAOException;
 import by.lifetech.ishop.dao.factory.DAOFactory;
+import by.lifetech.ishop.dao.impl.ItemDAOImpl;
 import by.lifetech.ishop.dao.impl.UserDAOImpl;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,8 +24,11 @@ public class Test {
 
         Calendar calendar = new GregorianCalendar(2001, 0 , 31);
         DAOFactory factory = DAOFactory.getInstance();
-        UserDAO userDAO = new UserDAOImpl();
+
         try {
+            UserDAO userDAO = new UserDAOImpl();
+            ItemDAO itemDAO = new ItemDAOImpl();
+
             // Регистрация пользователя
             //userDAO.registration("ivan1", "1234567".getBytes(), "Иван", "Иванов", "tes8885@mail.com", "+375259000377", "г.Минск", calendar.getTime());
 
@@ -39,11 +44,21 @@ public class Test {
             List<InfoUser> infoUserList = userDAO.findUsersByState(1);
             if (infoUserList != null) {
                 for (InfoUser infoUser : infoUserList) {
-                    System.out.println("Найден пользователь: " + infoUser.getLogin() + " " + infoUser.getName() + " " + infoUser.getSurname());
+                    System.out.println("Найден пользователь: " + infoUser.getLogin() + " " + infoUser.getName() + " " + infoUser.getSurname() + ". Статус: " + infoUser.getState());
                 }
 
             }
             else System.out.println("Поиск пользователя не дал результатов");
+
+
+            //Добавить товар
+            int id = itemDAO.addItem(1,"Колбаса из свинины", "Колбаса св.", "Вес 1 кг.", "Брестский МК", new BigDecimal("3.15"), 1, 50);
+            if (id > 0) {
+                System.out.println("ID товара: " + String.valueOf(id));
+            }
+            else {
+                System.out.println("Товар не добавлен "  + String.valueOf(id));
+            }
 
         } catch (DAOException e) {
             e.printStackTrace();

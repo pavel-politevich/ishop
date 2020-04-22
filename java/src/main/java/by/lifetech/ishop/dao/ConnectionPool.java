@@ -21,7 +21,7 @@ public final class ConnectionPool {
     private String password;
     private int poolSize;
 
-    private static ConnectionPool instance;
+    private volatile static ConnectionPool instance;
 
     private ConnectionPool() {
         DBResourseManager dbResourseManager = DBResourseManager.getInstance();
@@ -120,7 +120,7 @@ public final class ConnectionPool {
         try {
             st.close();
         } catch (SQLException e) {
-            //logger.log(:evel.ERROR, "Statement isn't closed.");
+            //logger.log(Level.ERROR, "Statement isn't closed.");
         }
     }
 

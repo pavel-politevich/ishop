@@ -17,6 +17,16 @@ import java.util.List;
 
 public class UserDAOImpl implements UserDAO {
 
+    private static ConnectionPool connectionPool = ConnectionPool.getInstance();
+
+    public  UserDAOImpl() throws DAOException {
+        try {
+            connectionPool.initPoolData();
+        } catch (ConnectionPoolException e) {
+            throw new DAOException("Error while initialize Connection pool", e);
+        }
+    }
+
     private static String getMD5Hash(byte[] password) {
         byte[] passwordToHash = password;
         String generatedPassword = null;
@@ -46,13 +56,12 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void registration(String login, byte[] password, String name, String surname, String email, String phone, String address, Date birthDate) throws DAOException {
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
+
         PreparedStatement ps = null;
         Connection con = null;
         final String INSERT_USER_SQL = "insert into users(login,password,name,surname,phone,email,address,date_of_birth,state_id) values(?,?,?,?,?,?,?,?,?)";
 
         try {
-            connectionPool.initPoolData();
             con = connectionPool.takeConnection();
             ps = con.prepareStatement(INSERT_USER_SQL);
             ps.setString(1, login);
@@ -98,7 +107,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public AuthorizedUser signIn(String login, byte[] password) throws DAOException {
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
+
         PreparedStatement ps = null;
         Connection con = null;
         ResultSet rs = null;
@@ -106,7 +115,6 @@ public class UserDAOImpl implements UserDAO {
         final String SIGN_IN_SQL = "select * from ishop.users where login = ? and password = ?";
 
         try {
-            connectionPool.initPoolData();
             con = connectionPool.takeConnection();
             ps = con.prepareStatement(SIGN_IN_SQL);
             ps.setString(1, login);
@@ -162,15 +170,13 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public List<InfoUser> findUsersByState(int stateId) throws DAOException {
 
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
         PreparedStatement ps = null;
         Connection con = null;
         ResultSet rs = null;
 
-        final String GET_USERS_BY_STATE = "select * from ishop.users where state_id = ?";
+        final String GET_USERS_BY_STATE = "select u.*, st.NAME as state from ishop.users u join ishop.dict_users_state st on u.STATE_ID = st.ID where state_id = ?";
 
         try {
-            connectionPool.initPoolData();
             con = connectionPool.takeConnection();
             ps = con.prepareStatement(GET_USERS_BY_STATE);
             ps.setInt(1, stateId);
@@ -184,7 +190,7 @@ public class UserDAOImpl implements UserDAO {
             List<InfoUser> infoUserList = new ArrayList<>();
 
             while (rs.next()) {
-                infoUserList.add(new InfoUser(rs.getString("login"), rs.getString("name"), rs.getString("surname"), rs.getString("email")));
+                infoUserList.add(new InfoUser(rs.getString("login"), rs.getString("name"), rs.getString("surname"), rs.getString("email"), rs.getString("state")));
             }
 
             return infoUserList;

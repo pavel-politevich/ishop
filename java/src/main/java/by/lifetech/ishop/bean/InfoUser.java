@@ -7,12 +7,14 @@ public class InfoUser {
     private String name;
     private String surname;
     private String email;
+    private  String state;
 
-    public InfoUser(String login, String name, String surname, String email) {
+    public InfoUser(String login, String name, String surname, String email, String state) {
         this.login = login;
         this.name = name;
         this.surname = surname;
         this.email = email;
+        this.state = state;
     }
 
     public String getName() {
@@ -29,5 +31,9 @@ public class InfoUser {
 
     public String getLogin() {
         return login;
+    }
+
+    public String getState() {
+        return state;
     }
 }
