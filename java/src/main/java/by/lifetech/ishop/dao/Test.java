@@ -2,6 +2,7 @@ package by.lifetech.ishop.dao;
 
 import by.lifetech.ishop.bean.AuthorizedUser;
 import by.lifetech.ishop.bean.InfoUser;
+import by.lifetech.ishop.bean.Item;
 import by.lifetech.ishop.bean.User;
 import by.lifetech.ishop.dao.exception.DAOException;
 import by.lifetech.ishop.dao.factory.DAOFactory;
@@ -52,13 +53,32 @@ public class Test {
 
 
             //Добавить товар
-            int id = itemDAO.addItem(1,"Колбаса из свинины", "Колбаса св.", "Вес 1 кг.", "Брестский МК", new BigDecimal("3.15"), 1, 50);
+            int id = itemDAO.addItem(1,"Колбаса из свинины", "Колбаса св.", "Вес 1 кг.", "Брестский МК", new BigDecimal("3.15"), 1, 10);
             if (id > 0) {
                 System.out.println("ID товара: " + String.valueOf(id));
+
+                //Изменение статуса товара
+                itemDAO.setItemStatus(id, 2);
+
+                //Изменение количества
+                itemDAO.updateItemBalance(id, -3);
             }
             else {
                 System.out.println("Товар не добавлен "  + String.valueOf(id));
             }
+
+
+            // Поиск товаров по категории
+            List<Item> itemList = itemDAO.findItemsByCategory(1);
+            if (itemList != null) {
+                for (Item item : itemList) {
+                    System.out.println("Кроткое название: " + item.getNameShort());
+                }
+
+            }
+            else System.out.println("Поиск товаров не дал результатов");
+
+
 
         } catch (DAOException e) {
             e.printStackTrace();

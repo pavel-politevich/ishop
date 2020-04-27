@@ -82,20 +82,7 @@ public class UserDAOImpl implements UserDAO {
         } catch (SQLException e) {
             throw new DAOException("Error while adding new User", e);
         } finally {
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (con != null) {
-                try {
-                    con.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            connectionPool.closeConnection(con, ps);
         }
 
     }
@@ -137,27 +124,7 @@ public class UserDAOImpl implements UserDAO {
         } catch (SQLException e) {
             throw new DAOException("Error while authorize User", e);
         } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (con != null) {
-                try {
-                    con.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            connectionPool.closeConnection(con, ps, rs);
         }
         return null;
     }
@@ -190,7 +157,13 @@ public class UserDAOImpl implements UserDAO {
             List<InfoUser> infoUserList = new ArrayList<>();
 
             while (rs.next()) {
-                infoUserList.add(new InfoUser(rs.getString("login"), rs.getString("name"), rs.getString("surname"), rs.getString("email"), rs.getString("state")));
+                infoUserList.add(new InfoUser(
+                        rs.getString("login"),
+                        rs.getString("name"),
+                        rs.getString("surname"),
+                        rs.getString("email"),
+                        rs.getString("state")
+                ));
             }
 
             return infoUserList;
@@ -200,27 +173,7 @@ public class UserDAOImpl implements UserDAO {
         } catch (SQLException e) {
             throw new DAOException("Error while find Users", e);
         } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (con != null) {
-                try {
-                    con.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            connectionPool.closeConnection(con, ps, rs);
         }
     }
 }

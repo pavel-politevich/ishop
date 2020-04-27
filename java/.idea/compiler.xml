@@ -9,5 +9,8 @@
         <module name="ishop" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ishopFrontend" target="1.7" />
+    </bytecodeTargetLevel>
   </component>
 </project>
