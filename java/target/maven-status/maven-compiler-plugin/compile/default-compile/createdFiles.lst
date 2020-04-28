@@ -7,6 +7,7 @@ by\lifetech\ishop\service\UserService.class
 by\lifetech\ishop\service\factory\ServiceFactory.class
 by\lifetech\ishop\bean\Item.class
 by\lifetech\ishop\dao\UserDAO.class
+by\lifetech\ishop\controller\command\Command.class
 by\lifetech\ishop\dao\factory\DAOFactory.class
 by\lifetech\ishop\dao\Test.class
 by\lifetech\ishop\bean\InfoUser.class

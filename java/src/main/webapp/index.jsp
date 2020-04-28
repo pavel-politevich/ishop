@@ -3,7 +3,10 @@
 <!DOCTYPE html>
 <html>
 <body>
-<h2>Hello World from frontend!</h2>
-<a href="login">go to LogIn page</a>
+    <h2>Index Page</h2>
+    <a href="login">LogIn page</a>
+    <br />
+    <br />
+    <a href="register">Registration page</a>
 </body>
 </html>

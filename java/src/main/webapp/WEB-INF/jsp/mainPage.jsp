@@ -3,12 +3,24 @@
 <!DOCTYPE html>
 <html>
 <body>
-<h2>Main Page</h2>
-<h1>Hello,
+<h1>Main Page</h1>
+<h1>
 
 <%
-	AuthorizedUser user = (AuthorizedUser)request.getAttribute("user");
-	out.println(user.getName());
+
+    if (request.getAttribute("operation") != null && request.getAttribute("operation").equals("registration")) {
+            out.println("Регистрация прошла успешно!");
+    }
+
+
+    else if (request.getAttribute("user") != null) {
+        AuthorizedUser user = (AuthorizedUser)request.getAttribute("user");
+        out.println("Добро пожаловать, " + user.getName());
+    }
+    else {
+        out.println("Пользователь не найден!");
+    }
+
 %>
 
 </h1>

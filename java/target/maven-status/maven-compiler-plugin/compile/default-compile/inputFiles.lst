@@ -6,6 +6,7 @@ C:\Users\Pavel.Politevich\IdeaProjects\ishop\src\main\java\by\lifetech\ishop\dao
 C:\Users\Pavel.Politevich\IdeaProjects\ishop\src\main\java\by\lifetech\ishop\dao\DBResourseManager.java
 C:\Users\Pavel.Politevich\IdeaProjects\ishop\src\main\java\by\lifetech\ishop\dao\ConnectionPool.java
 C:\Users\Pavel.Politevich\IdeaProjects\ishop\src\main\java\by\lifetech\ishop\service\exception\ServiceException.java
+C:\Users\Pavel.Politevich\IdeaProjects\ishop\src\main\java\by\lifetech\ishop\controller\command\Command.java
 C:\Users\Pavel.Politevich\IdeaProjects\ishop\src\main\java\by\lifetech\ishop\dao\ConnectionPoolException.java
 C:\Users\Pavel.Politevich\IdeaProjects\ishop\src\main\java\by\lifetech\ishop\dao\exception\DAOException.java
 C:\Users\Pavel.Politevich\IdeaProjects\ishop\src\main\java\by\lifetech\ishop\dao\impl\UserDAOImpl.java
