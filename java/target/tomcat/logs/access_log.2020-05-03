@@ -1,0 +1,2 @@
+0:0:0:0:0:0:0:1 - - [03/May/2020:17:28:42 +0300] "GET /login HTTP/1.1" 200 476 http-bio-8888-exec-1 84
+0:0:0:0:0:0:0:1 - - [03/May/2020:17:28:55 +0300] "GET /Controller?command=signIn&username=olga4&password=4444 HTTP/1.1" 200 131 http-bio-8888-exec-3 649

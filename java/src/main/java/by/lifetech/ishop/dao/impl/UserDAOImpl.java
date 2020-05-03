@@ -76,6 +76,7 @@ public class UserDAOImpl implements UserDAO {
 
             ps.executeUpdate();
 
+            setUserRole(login,2);
 
         } catch (ConnectionPoolException e) {
             throw new DAOException("Error in Connection pool while adding new User", e);
@@ -90,6 +91,31 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void registration(User user) {
 
+    }
+
+    @Override
+    public void setUserRole(String login, int roleId) throws DAOException {
+
+        PreparedStatement ps = null;
+        Connection con = null;
+        final String SET_USER_ROLE_SQL = "REPLACE INTO ishop.user_roles (user_id, role_id) VALUES((select id from ishop.users where LOGIN = ?),?)";
+
+        try {
+            con = connectionPool.takeConnection();
+            ps = con.prepareStatement(SET_USER_ROLE_SQL);
+            ps.setString(1, login);
+            ps.setInt(2, roleId);
+
+            ps.executeUpdate();
+
+
+        } catch (ConnectionPoolException e) {
+            throw new DAOException("Error in Connection pool while adding new User", e);
+        } catch (SQLException e) {
+            throw new DAOException("Error while set new Role", e);
+        } finally {
+            connectionPool.closeConnection(con, ps);
+        }
     }
 
     @Override
