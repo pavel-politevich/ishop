@@ -1,9 +1,0 @@
-0:0:0:0:0:0:0:1 - - [28/Apr/2020:19:17:56 +0300] "GET / HTTP/1.1" 200 173 http-bio-8888-exec-1 198
-0:0:0:0:0:0:0:1 - - [28/Apr/2020:19:17:58 +0300] "GET /login HTTP/1.1" 200 476 http-bio-8888-exec-3 4
-0:0:0:0:0:0:0:1 - - [28/Apr/2020:19:18:07 +0300] "GET /Controller?command=signIn&username=mikola999&password=987654321 HTTP/1.1" 500 3419 http-bio-8888-exec-4 608
-0:0:0:0:0:0:0:1 - - [28/Apr/2020:19:18:49 +0300] "GET /Controller?command=signIn&username=mikola999&password=987654321 HTTP/1.1" 200 133 http-bio-8888-exec-8 139
-0:0:0:0:0:0:0:1 - - [28/Apr/2020:19:18:58 +0300] "GET /login HTTP/1.1" 200 476 http-bio-8888-exec-10 8
-0:0:0:0:0:0:0:1 - - [28/Apr/2020:19:19:06 +0300] "GET /Controller?command=signIn&username=ivan1&password=1234567 HTTP/1.1" 200 135 http-bio-8888-exec-10 34
-0:0:0:0:0:0:0:1 - - [28/Apr/2020:19:19:14 +0300] "GET /Controller?command=signIn&username=ivan1&password=222 HTTP/1.1" 200 137 http-bio-8888-exec-2 45
-0:0:0:0:0:0:0:1 - - [28/Apr/2020:19:19:20 +0300] "GET /register HTTP/1.1" 200 1489 http-bio-8888-exec-2 9
-0:0:0:0:0:0:0:1 - - [28/Apr/2020:19:20:18 +0300] "GET /Controller?command=registration&login=admin&password=admin&username=Admin&surname=-&email=admin%40mail.ru&phone=%2B375252555566&address=-&dateOfBirth=2010-12-20 HTTP/1.1" 200 145 http-bio-8888-exec-2 47
