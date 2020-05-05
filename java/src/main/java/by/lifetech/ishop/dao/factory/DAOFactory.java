@@ -10,17 +10,13 @@ public final class DAOFactory {
     private static DAOFactory instance;
 
     static {
-        try {
-            instance = new DAOFactory();
-        } catch (DAOException e) {
-            //e.printStackTrace();
-        }
+        instance = new DAOFactory();
     }
 
     private final UserDAO sqlUserImpl = new UserDAOImpl();
     private final ItemDAO sqlItemImpl = new ItemDAOImpl();
 
-    private DAOFactory() throws DAOException {}
+    private DAOFactory() {}
 
     public static DAOFactory getInstance() {
         return instance;

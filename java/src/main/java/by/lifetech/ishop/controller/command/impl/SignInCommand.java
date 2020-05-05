@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class SignInCommand implements Command {
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public void execute(HttpServletRequest req, HttpServletResponse resp) {
 
         String login = req.getParameter("username");
         byte[] password = req.getParameter("password").getBytes();
@@ -32,14 +32,12 @@ public class SignInCommand implements Command {
             dispatcher.forward(req, resp);
 
         } catch (ServiceException e) {
-            e.printStackTrace();
+            // log
         } catch (ServletException e) {
-            e.printStackTrace();
+            // log
         } catch (IOException e) {
-            e.printStackTrace();
+            // log
         }
 
-
-        return null;
     }
 }

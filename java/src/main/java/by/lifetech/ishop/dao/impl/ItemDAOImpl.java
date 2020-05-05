@@ -1,8 +1,8 @@
 package by.lifetech.ishop.dao.impl;
 
 import by.lifetech.ishop.bean.Item;
-import by.lifetech.ishop.dao.ConnectionPool;
-import by.lifetech.ishop.dao.ConnectionPoolException;
+import by.lifetech.ishop.dao.impl.connection.ConnectionPool;
+import by.lifetech.ishop.dao.impl.connection.ConnectionPoolException;
 import by.lifetech.ishop.dao.ItemDAO;
 import by.lifetech.ishop.dao.exception.DAOException;
 
@@ -15,20 +15,18 @@ public class ItemDAOImpl implements ItemDAO {
 
     private static ConnectionPool connectionPool = ConnectionPool.getInstance();
 
-    public ItemDAOImpl() throws DAOException {
-        try {
-            connectionPool.initPoolData();
-        } catch (ConnectionPoolException e) {
-            throw new DAOException("Error while initialize Connection pool", e);
-        }
-    }
+    private static final String INSERT_ITEM_SQL = "{call ishop.add_new_item(?,?,?,?,?,?,?,?,?)}";
+    private static final String UPDATE_ITEM_STATUS_SQL = "update ishop.items set state_id = ? where id = ?";
+    private static final String GET_ITEMS_BY_STATE = "SELECT i.ID, i.NAME_SHORT, i.NAME_FULL, i.DESCRIPTION, i.MANUFACTURER, i.PRICE, st.COUNT, dis.NAME as STATE, cat.CATEGORY_NAME, (select IFNULL(AVG(r.rate),0) from ishop.item_reviews r where r.ITEM_ID = i.ID) as RATING FROM ishop.items i join ishop.storage st on st.ITEM_ID = i.ID join ishop.dict_items_state dis on i.STATE_ID = dis.ID join ishop.category cat on i.ID_CATEGORY = cat.ID where i.ID_CATEGORY = ?";
+
+
+
+    public ItemDAOImpl()  { }
 
     @Override
     public int addItem(int categoryId, String nameFull, String nameShort, String description, String manufacturer, BigDecimal cost, int stateId, int count) throws DAOException {
         CallableStatement cs = null;
         Connection con = null;
-
-        final String INSERT_ITEM_SQL = "{call ishop.add_new_item(?,?,?,?,?,?,?,?,?)}";
 
         try {
             con = connectionPool.takeConnection();
@@ -61,7 +59,6 @@ public class ItemDAOImpl implements ItemDAO {
     public void setItemStatus(int itemId, int itemStateId) throws DAOException {
         PreparedStatement ps = null;
         Connection con = null;
-        final String UPDATE_ITEM_STATUS_SQL = "update ishop.items set state_id = ? where id = ?";
 
         try {
             con = connectionPool.takeConnection();
@@ -86,7 +83,6 @@ public class ItemDAOImpl implements ItemDAO {
     public void updateItemBalance(int itemId, int delta) throws DAOException {
         PreparedStatement ps = null;
         Connection con = null;
-        final String UPDATE_ITEM_STATUS_SQL = "update ishop.storage set count = count + ? where item_id = ?";
 
         try {
             con = connectionPool.takeConnection();
@@ -110,8 +106,6 @@ public class ItemDAOImpl implements ItemDAO {
         PreparedStatement ps = null;
         Connection con = null;
         ResultSet rs = null;
-
-        final String GET_ITEMS_BY_STATE = "SELECT i.ID, i.NAME_SHORT, i.NAME_FULL, i.DESCRIPTION, i.MANUFACTURER, i.PRICE, st.COUNT, dis.NAME as STATE, cat.CATEGORY_NAME, (select IFNULL(AVG(r.rate),0) from ishop.item_reviews r where r.ITEM_ID = i.ID) as RATING FROM ishop.items i join ishop.storage st on st.ITEM_ID = i.ID join ishop.dict_items_state dis on i.STATE_ID = dis.ID join ishop.category cat on i.ID_CATEGORY = cat.ID where i.ID_CATEGORY = ?";
 
         try {
             con = connectionPool.takeConnection();

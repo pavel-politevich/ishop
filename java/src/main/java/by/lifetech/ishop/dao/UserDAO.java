@@ -9,9 +9,8 @@ import by.lifetech.ishop.bean.User;
 import by.lifetech.ishop.dao.exception.DAOException;
 
 public interface UserDAO {
-    void registration(String login, byte[] password, String name, String surname, String email, String phone, String address, Date birthDate) throws DAOException;
+    void registration(String login, byte[] password, String name, String surname, String email, String phone, String address, Date birthDate, int roleId) throws DAOException;
     void registration(User user);
-    void setUserRole(String login, int roleId) throws DAOException;
     AuthorizedUser signIn (String login, byte[] password) throws DAOException;
     User getUser(int userId);
     List<InfoUser> findUsersByState(int stateId) throws DAOException;

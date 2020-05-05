@@ -3,6 +3,7 @@ package by.lifetech.ishop.controller;
 import by.lifetech.ishop.controller.command.Command;
 import by.lifetech.ishop.controller.command.impl.RegistrationCommand;
 import by.lifetech.ishop.controller.command.impl.SignInCommand;
+import by.lifetech.ishop.controller.command.impl.WrongRequestCommand;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +14,7 @@ final class CommandProvider {
     CommandProvider(){
         repository.put(CommandName.SIGNIN, new SignInCommand());
         repository.put(CommandName.REGISTRATION, new RegistrationCommand());
+        repository.put(CommandName.WRONG_REQUEST, new WrongRequestCommand());
     }
 
     Command getCommand(String name){

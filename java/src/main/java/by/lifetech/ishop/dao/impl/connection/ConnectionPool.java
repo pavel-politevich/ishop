@@ -1,14 +1,15 @@
-package by.lifetech.ishop.dao;
+package by.lifetech.ishop.dao.impl.connection;
 
+
+import by.lifetech.ishop.dao.DBParameter;
+import by.lifetech.ishop.dao.DBResourseManager;
 
 import java.sql.*;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
-import java.util.logging.Level;
 
 public final class ConnectionPool {
 
@@ -40,12 +41,16 @@ public final class ConnectionPool {
     public static ConnectionPool getInstance() {
         if (instance == null) {
             instance = new ConnectionPool();
+            try {
+                instance.initPoolData();
+            } catch (ConnectionPoolException e) {
+                // log
+            }
         }
         return instance;
     }
 
     public  void initPoolData() throws ConnectionPoolException {
-        Locale.setDefault(Locale.ENGLISH);
 
         try {
             Class.forName(driverName);
@@ -92,12 +97,6 @@ public final class ConnectionPool {
 
     public void closeConnection(Connection con, Statement st, ResultSet rs) {
         try {
-            con.close();
-        } catch (SQLException e) {
-            //logger.log(Level.ERROR, "Connection isn't return to the pool.");
-        }
-
-        try {
             rs.close();
         } catch (SQLException e) {
             //logger.log(Level.ERROR, "ResultSet isn't closed.");
@@ -107,6 +106,12 @@ public final class ConnectionPool {
             st.close();
         } catch (SQLException e) {
             //logger.log(Level.ERROR, "Statement isn't closed.");
+        }
+
+        try {
+            con.close();
+        } catch (SQLException e) {
+            //logger.log(Level.ERROR, "Connection isn't return to the pool.");
         }
     }
 

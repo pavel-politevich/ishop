@@ -3,8 +3,8 @@ package by.lifetech.ishop.dao.impl;
 import by.lifetech.ishop.bean.AuthorizedUser;
 import by.lifetech.ishop.bean.InfoUser;
 import by.lifetech.ishop.bean.User;
-import by.lifetech.ishop.dao.ConnectionPool;
-import by.lifetech.ishop.dao.ConnectionPoolException;
+import by.lifetech.ishop.dao.impl.connection.ConnectionPool;
+import by.lifetech.ishop.dao.impl.connection.ConnectionPoolException;
 import by.lifetech.ishop.dao.UserDAO;
 import by.lifetech.ishop.dao.exception.DAOException;
 
@@ -19,13 +19,12 @@ public class UserDAOImpl implements UserDAO {
 
     private static ConnectionPool connectionPool = ConnectionPool.getInstance();
 
-    public  UserDAOImpl() throws DAOException {
-        try {
-            connectionPool.initPoolData();
-        } catch (ConnectionPoolException e) {
-            throw new DAOException("Error while initialize Connection pool", e);
-        }
-    }
+    private static final String INSERT_USER_SQL = "insert into users(login,password,name,surname,phone,email,address,date_of_birth,state_id,role_id) values(?,?,?,?,?,?,?,?,?,?)";
+    private static final String SIGN_IN_SQL = "select u.*, r.DESCRIPTION as role from ishop.users u join ishop.roles r on u.role_id = r.id where login = ? and password = ?";
+    private static final String GET_USERS_BY_STATE = "select u.*, st.NAME as state from ishop.users u join ishop.dict_users_state st on u.STATE_ID = st.ID where state_id = ?";
+
+
+    public  UserDAOImpl() {  }
 
     private static String getMD5Hash(byte[] password) {
         byte[] passwordToHash = password;
@@ -49,17 +48,16 @@ public class UserDAOImpl implements UserDAO {
         }
         catch (NoSuchAlgorithmException e)
         {
-            e.printStackTrace();
+            // log
         }
         return generatedPassword;
     }
 
     @Override
-    public void registration(String login, byte[] password, String name, String surname, String email, String phone, String address, Date birthDate) throws DAOException {
+    public void registration(String login, byte[] password, String name, String surname, String email, String phone, String address, Date birthDate, int roleId) throws DAOException {
 
         PreparedStatement ps = null;
         Connection con = null;
-        final String INSERT_USER_SQL = "insert into users(login,password,name,surname,phone,email,address,date_of_birth,state_id) values(?,?,?,?,?,?,?,?,?)";
 
         try {
             con = connectionPool.takeConnection();
@@ -73,10 +71,10 @@ public class UserDAOImpl implements UserDAO {
             ps.setString(7, address);
             ps.setDate(8, (java.sql.Date) new java.sql.Date(birthDate.getTime()));
             ps.setInt(9, 1);
+            ps.setInt(10, roleId);
 
             ps.executeUpdate();
 
-            setUserRole(login,2);
 
         } catch (ConnectionPoolException e) {
             throw new DAOException("Error in Connection pool while adding new User", e);
@@ -93,30 +91,6 @@ public class UserDAOImpl implements UserDAO {
 
     }
 
-    @Override
-    public void setUserRole(String login, int roleId) throws DAOException {
-
-        PreparedStatement ps = null;
-        Connection con = null;
-        final String SET_USER_ROLE_SQL = "REPLACE INTO ishop.user_roles (user_id, role_id) VALUES((select id from ishop.users where LOGIN = ?),?)";
-
-        try {
-            con = connectionPool.takeConnection();
-            ps = con.prepareStatement(SET_USER_ROLE_SQL);
-            ps.setString(1, login);
-            ps.setInt(2, roleId);
-
-            ps.executeUpdate();
-
-
-        } catch (ConnectionPoolException e) {
-            throw new DAOException("Error in Connection pool while adding new User", e);
-        } catch (SQLException e) {
-            throw new DAOException("Error while set new Role", e);
-        } finally {
-            connectionPool.closeConnection(con, ps);
-        }
-    }
 
     @Override
     public AuthorizedUser signIn(String login, byte[] password) throws DAOException {
@@ -125,7 +99,6 @@ public class UserDAOImpl implements UserDAO {
         Connection con = null;
         ResultSet rs = null;
 
-        final String SIGN_IN_SQL = "select * from ishop.users where login = ? and password = ?";
 
         try {
             con = connectionPool.takeConnection();
@@ -142,7 +115,7 @@ public class UserDAOImpl implements UserDAO {
             rs.last();
 
             if (rs.getRow() == 1) {
-                return new AuthorizedUser(rs.getString("name"), rs.getString("surname"), rs.getString("email"));
+                return new AuthorizedUser(rs.getString("name"), rs.getString("surname"), rs.getString("email"), rs.getString("role"));
             }
 
         } catch (ConnectionPoolException e) {
@@ -167,7 +140,6 @@ public class UserDAOImpl implements UserDAO {
         Connection con = null;
         ResultSet rs = null;
 
-        final String GET_USERS_BY_STATE = "select u.*, st.NAME as state from ishop.users u join ishop.dict_users_state st on u.STATE_ID = st.ID where state_id = ?";
 
         try {
             con = connectionPool.takeConnection();

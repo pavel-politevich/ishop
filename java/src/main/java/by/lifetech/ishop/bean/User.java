@@ -1,8 +1,11 @@
 package by.lifetech.ishop.bean;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class User {
+    public static final long serialVersionUID = 1316369952791612931L;
+
     private String login;
     private String password;
     private String name;
@@ -29,5 +32,26 @@ public class User {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return login.equals(user.login) &&
+                password.equals(user.password) &&
+                Objects.equals(name, user.name) &&
+                Objects.equals(surname, user.surname) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(phone, user.phone) &&
+                Objects.equals(address, user.address) &&
+                Objects.equals(dateOfBirth, user.dateOfBirth) &&
+                stateId.equals(user.stateId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(login, password, name, surname, email, phone, address, dateOfBirth, stateId);
     }
 }

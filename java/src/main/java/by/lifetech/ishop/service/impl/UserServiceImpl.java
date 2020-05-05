@@ -4,7 +4,6 @@ import by.lifetech.ishop.bean.AuthorizedUser;
 import by.lifetech.ishop.dao.UserDAO;
 import by.lifetech.ishop.dao.exception.DAOException;
 import by.lifetech.ishop.dao.factory.DAOFactory;
-import by.lifetech.ishop.dao.impl.UserDAOImpl;
 import by.lifetech.ishop.service.UserService;
 import by.lifetech.ishop.service.exception.ServiceException;
 
@@ -19,9 +18,9 @@ public class UserServiceImpl implements UserService {
             return null;
         }
 
-        UserDAO userDAO = null;
+        UserDAO userDAO = factory.getUserDAO();
+
         try {
-            userDAO = new UserDAOImpl();
             return userDAO.signIn(login, password);
         } catch (DAOException e) {
             throw new ServiceException("Error while signIn User", e);
@@ -29,13 +28,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void registration(String login, byte[] password, String name, String surname, String email, String phone, String address, Date birthDate) throws ServiceException {
+    public void registration(String login, byte[] password, String name, String surname, String email, String phone, String address, Date birthDate, int roleId) throws ServiceException {
         DAOFactory factory = DAOFactory.getInstance();
 
-        UserDAO userDAO = null;
+        UserDAO userDAO = factory.getUserDAO();
+
         try {
-            userDAO = new UserDAOImpl();
-            userDAO.registration(login, password, name, surname, email, phone, address, birthDate);
+            userDAO.registration(login, password, name, surname, email, phone, address, birthDate, roleId);
         } catch (DAOException e) {
             throw new ServiceException("Error while registration User", e);
         }

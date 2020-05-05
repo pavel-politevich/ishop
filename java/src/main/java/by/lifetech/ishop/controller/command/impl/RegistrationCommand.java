@@ -16,7 +16,7 @@ import java.util.Date;
 
 public class RegistrationCommand implements Command {
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public void execute(HttpServletRequest req, HttpServletResponse resp) {
 
         String login = req.getParameter("login");
         String password = req.getParameter("password");
@@ -27,6 +27,8 @@ public class RegistrationCommand implements Command {
         String address = req.getParameter("address");
         String dateOfBirth = req.getParameter("dateOfBirth");
 
+        int roleId = 2;
+
         SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
 
         try {
@@ -35,7 +37,7 @@ public class RegistrationCommand implements Command {
             ServiceFactory serviceFactory = ServiceFactory.getInstance();
             UserService userService = serviceFactory.getUserService();
 
-            userService.registration(login,password.getBytes(),username,surname,email,phone,address,dateBirth);
+            userService.registration(login,password.getBytes(),username,surname,email,phone,address,dateBirth,roleId);
 
             req.setAttribute("operation", new String("registration"));
 
@@ -43,15 +45,15 @@ public class RegistrationCommand implements Command {
             dispatcher.forward(req, resp);
 
         } catch (ParseException e) {
+            // log
             e.printStackTrace();
         } catch (ServiceException e) {
-            e.printStackTrace();
+            // log
         } catch (ServletException e) {
-            e.printStackTrace();
+            // log
         } catch (IOException e) {
-            e.printStackTrace();
+            // log
         }
 
-        return null;
     }
 }
