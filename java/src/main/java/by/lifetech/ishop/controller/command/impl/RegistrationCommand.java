@@ -10,7 +10,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -40,7 +39,7 @@ public class RegistrationCommand implements Command {
 
             userService.registration(login,password.getBytes(),username,surname,email,phone,address,dateBirth,roleId);
 
-            req.setAttribute("operation", new String("registration"));
+            req.setAttribute("operation", "registration");
 
             RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/jsp/mainPage.jsp");
             dispatcher.forward(req, resp);

@@ -2,12 +2,11 @@ package by.lifetech.ishop.dao.factory;
 
 import by.lifetech.ishop.dao.ItemDAO;
 import by.lifetech.ishop.dao.UserDAO;
-import by.lifetech.ishop.dao.exception.DAOException;
 import by.lifetech.ishop.dao.impl.ItemDAOImpl;
 import by.lifetech.ishop.dao.impl.UserDAOImpl;
 
 public final class DAOFactory {
-    private static DAOFactory instance;
+    private static volatile DAOFactory instance;
 
     static {
         instance = new DAOFactory();
