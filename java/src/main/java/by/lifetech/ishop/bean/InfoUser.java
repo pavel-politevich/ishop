@@ -37,6 +37,17 @@ public class InfoUser {
         return Objects.hash(login, name, surname, email, state);
     }
 
+    @Override
+    public String toString() {
+        return "InfoUser{" +
+                "login='" + login + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", state='" + state + '\'' +
+                '}';
+    }
+
     public String getName() {
         return name;
     }

@@ -9,10 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class WrongRequestCommand implements Command {
+
+    private static final String ERROR_PAGE_URI = "WEB-INF/jsp/errorPage.jsp";
+
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) {
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/jsp/errorPage.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher(ERROR_PAGE_URI);
         try {
             dispatcher.forward(req, resp);
         } catch (ServletException e) {

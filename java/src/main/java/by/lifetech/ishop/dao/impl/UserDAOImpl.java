@@ -17,6 +17,13 @@ import java.util.List;
 
 public class UserDAOImpl implements UserDAO {
 
+    private static final String TBL_COLUMN_NAME = "name";
+    private static final String TBL_COLUMN_SURNAME = "surname";
+    private static final String TBL_COLUMN_EMAIL = "email";
+    private static final String TBL_COLUMN_ROLE = "role";
+    private static final String TBL_COLUMN_LOGIN = "login";
+    private static final String TBL_COLUMN_STATE = "state";
+
     private static ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     private static final String INSERT_USER_SQL = "insert into users(login,password,name,surname,phone,email,address,date_of_birth,state_id,role_id) values(?,?,?,?,?,?,?,?,?,?)";
@@ -115,7 +122,7 @@ public class UserDAOImpl implements UserDAO {
             rs.last();
 
             if (rs.getRow() == 1) {
-                return new AuthorizedUser(rs.getString("name"), rs.getString("surname"), rs.getString("email"), rs.getString("role"));
+                return new AuthorizedUser(rs.getString(TBL_COLUMN_NAME), rs.getString(TBL_COLUMN_SURNAME), rs.getString(TBL_COLUMN_EMAIL), rs.getString(TBL_COLUMN_ROLE));
             }
 
         } catch (ConnectionPoolException e) {
@@ -156,11 +163,11 @@ public class UserDAOImpl implements UserDAO {
 
             while (rs.next()) {
                 infoUserList.add(new InfoUser(
-                        rs.getString("login"),
-                        rs.getString("name"),
-                        rs.getString("surname"),
-                        rs.getString("email"),
-                        rs.getString("state")
+                        rs.getString(TBL_COLUMN_LOGIN),
+                        rs.getString(TBL_COLUMN_NAME),
+                        rs.getString(TBL_COLUMN_SURNAME),
+                        rs.getString(TBL_COLUMN_EMAIL),
+                        rs.getString(TBL_COLUMN_STATE)
                 ));
             }
 

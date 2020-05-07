@@ -13,11 +13,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class SignInCommand implements Command {
+
+    private static final String REQUEST_PARAMETER_USERNAME = "username";
+    private static final String REQUEST_PARAMETER_LOGIN = "password";
+    private static final String MAIN_PAGE_URI = "WEB-INF/jsp/mainPage.jsp";
+
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) {
 
-        String login = req.getParameter("username");
-        byte[] password = req.getParameter("password").getBytes();
+        String login = req.getParameter(REQUEST_PARAMETER_USERNAME);
+        byte[] password = req.getParameter(REQUEST_PARAMETER_LOGIN).getBytes();
 
         AuthorizedUser authorizedUser = null;
 
@@ -28,7 +33,7 @@ public class SignInCommand implements Command {
 
             req.setAttribute("user", authorizedUser);
 
-            RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/jsp/mainPage.jsp");
+            RequestDispatcher dispatcher = req.getRequestDispatcher(MAIN_PAGE_URI);
             dispatcher.forward(req, resp);
 
         } catch (ServiceException e) {

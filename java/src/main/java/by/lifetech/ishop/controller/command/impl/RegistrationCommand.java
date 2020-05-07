@@ -15,21 +15,33 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class RegistrationCommand implements Command {
+
+    private static final String REQUEST_PARAMETER_LOGIN = "login";
+    private static final String REQUEST_PARAMETER_PASSWORD = "password";
+    private static final String REQUEST_PARAMETER_USERNAME = "username";
+    private static final String REQUEST_PARAMETER_SURNAME = "surname";
+    private static final String REQUEST_PARAMETER_EMAIL = "email";
+    private static final String REQUEST_PARAMETER_PHONE = "phone";
+    private static final String REQUEST_PARAMETER_ADDRESS = "address";
+    private static final String REQUEST_PARAMETER_DATE_OF_BIRTH = "dateOfBirth";
+    private static final String DATE_PATTERN = "yyyy-MM-dd";
+    private static final String MAIN_PAGE_URI = "WEB-INF/jsp/mainPage.jsp";
+
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) {
 
-        String login = req.getParameter("login");
-        String password = req.getParameter("password");
-        String username = req.getParameter("username");
-        String surname = req.getParameter("surname");
-        String email = req.getParameter("email");
-        String phone = req.getParameter("phone");
-        String address = req.getParameter("address");
-        String dateOfBirth = req.getParameter("dateOfBirth");
+        String login = req.getParameter(REQUEST_PARAMETER_LOGIN);
+        String password = req.getParameter(REQUEST_PARAMETER_PASSWORD);
+        String username = req.getParameter(REQUEST_PARAMETER_USERNAME);
+        String surname = req.getParameter(REQUEST_PARAMETER_SURNAME);
+        String email = req.getParameter(REQUEST_PARAMETER_EMAIL);
+        String phone = req.getParameter(REQUEST_PARAMETER_PHONE);
+        String address = req.getParameter(REQUEST_PARAMETER_ADDRESS);
+        String dateOfBirth = req.getParameter(REQUEST_PARAMETER_DATE_OF_BIRTH);
 
         int roleId = 2;
 
-        SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new java.text.SimpleDateFormat(DATE_PATTERN);
 
         try {
             Date dateBirth = sdf.parse(dateOfBirth);
@@ -41,7 +53,7 @@ public class RegistrationCommand implements Command {
 
             req.setAttribute("operation", "registration");
 
-            RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/jsp/mainPage.jsp");
+            RequestDispatcher dispatcher = req.getRequestDispatcher(MAIN_PAGE_URI);
             dispatcher.forward(req, resp);
 
         } catch (ParseException e) {

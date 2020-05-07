@@ -10,6 +10,9 @@ import java.io.IOException;
 
 public class Controller extends HttpServlet {
 
+    private static final String REQUEST_PARAMETER_COMMAND = "command";
+    private static final String CHARACTER_ENCODING = "utf-8";
+
     public Controller() {
         super();
     }
@@ -19,7 +22,7 @@ public class Controller extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        req.setCharacterEncoding("utf-8");
+        req.setCharacterEncoding(CHARACTER_ENCODING);
         processRequest(req, resp);
         return;
     }
@@ -29,7 +32,7 @@ public class Controller extends HttpServlet {
         String commandName;
         Command executionCommand;
 
-        commandName = req.getParameter("command");
+        commandName = req.getParameter(REQUEST_PARAMETER_COMMAND);
         executionCommand = provider.getCommand(commandName);
         executionCommand.execute(req,resp);
 

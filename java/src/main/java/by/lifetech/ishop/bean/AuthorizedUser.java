@@ -33,9 +33,21 @@ public class AuthorizedUser {
                 Objects.equals(roleName, that.roleName);
     }
 
+
     @Override
     public int hashCode() {
         return Objects.hash(name, surname, email, roleName);
+    }
+
+
+    @Override
+    public String toString() {
+        return "AuthorizedUser{" +
+                "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", roleName='" + roleName + '\'' +
+                '}';
     }
 
     public String getName() {

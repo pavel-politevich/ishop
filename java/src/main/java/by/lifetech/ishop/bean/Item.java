@@ -54,6 +54,22 @@ public class Item {
         return Objects.hash(itemId, categoryName, nameShort, nameFull, description, manufacturer, price, stateName, rating, count);
     }
 
+    @Override
+    public String toString() {
+        return "Item{" +
+                "itemId=" + itemId +
+                ", categoryName='" + categoryName + '\'' +
+                ", nameShort='" + nameShort + '\'' +
+                ", nameFull='" + nameFull + '\'' +
+                ", description='" + description + '\'' +
+                ", manufacturer='" + manufacturer + '\'' +
+                ", price=" + price +
+                ", stateName='" + stateName + '\'' +
+                ", rating=" + rating +
+                ", count=" + count +
+                '}';
+    }
+
     public int getItemId() {
         return itemId;
     }

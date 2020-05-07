@@ -13,6 +13,20 @@ import java.util.List;
 
 public class ItemDAOImpl implements ItemDAO {
 
+    private static final String TBL_COLUMN_ID_CATEGORY = "id_category";
+    private static final String TBL_COLUMN_NAME_SHORT = "name_short";
+    private static final String TBL_COLUMN_NAME_FULL = "name_full";
+    private static final String TBL_COLUMN_DESCRIPTION = "description";
+    private static final String TBL_COLUMN_MANUFACTURER = "manufacturer";
+    private static final String TBL_COLUMN_PRICE = "price";
+    private static final String TBL_COLUMN_STATE_ID = "state_id";
+    private static final String TBL_COLUMN_COUNT = "count";
+    private static final String TBL_COLUMN_ITEM_ID = "item_id";
+    private static final String TBL_COLUMN_ID = "ID";
+    private static final String TBL_COLUMN_CATEGORY_NAME = "CATEGORY_NAME";
+    private static final String TBL_COLUMN_STATE = "STATE";
+    private static final String TBL_COLUMN_RATING = "RATING";
+
     private static ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     private static final String INSERT_ITEM_SQL = "{call ishop.add_new_item(?,?,?,?,?,?,?,?,?)}";
@@ -31,20 +45,20 @@ public class ItemDAOImpl implements ItemDAO {
         try {
             con = connectionPool.takeConnection();
             cs = con.prepareCall(INSERT_ITEM_SQL);
-            cs.setInt("id_category",categoryId);
-            cs.setString("name_short",nameShort);
-            cs.setString("name_full",nameFull);
-            cs.setString("description",description);
-            cs.setString("manufacturer",manufacturer);
-            cs.setBigDecimal("price",cost);
-            cs.setInt("state_id",stateId);
-            cs.setInt("count",count);
+            cs.setInt(TBL_COLUMN_ID_CATEGORY,categoryId);
+            cs.setString(TBL_COLUMN_NAME_SHORT,nameShort);
+            cs.setString(TBL_COLUMN_NAME_FULL,nameFull);
+            cs.setString(TBL_COLUMN_DESCRIPTION,description);
+            cs.setString(TBL_COLUMN_MANUFACTURER,manufacturer);
+            cs.setBigDecimal(TBL_COLUMN_PRICE,cost);
+            cs.setInt(TBL_COLUMN_STATE_ID,stateId);
+            cs.setInt(TBL_COLUMN_COUNT,count);
 
-            cs.registerOutParameter("item_id", Types.INTEGER);
+            cs.registerOutParameter(TBL_COLUMN_ITEM_ID, Types.INTEGER);
 
             cs.execute();
 
-            return cs.getInt("item_id");
+            return cs.getInt(TBL_COLUMN_ITEM_ID);
 
         } catch (ConnectionPoolException e) {
             throw new DAOException("Error in Connection pool while adding new Item", e);
@@ -122,16 +136,16 @@ public class ItemDAOImpl implements ItemDAO {
 
             while (rs.next()) {
                 itemList.add(new Item(
-                        rs.getInt("ID"),
-                        rs.getString("CATEGORY_NAME"),
-                        rs.getString("NAME_SHORT"),
-                        rs.getString("NAME_FULL"),
-                        rs.getString("DESCRIPTION"),
-                        rs.getString("MANUFACTURER"),
-                        rs.getBigDecimal("PRICE"),
-                        rs.getString("STATE"),
-                        rs.getDouble("RATING"),
-                        rs.getInt("COUNT")
+                        rs.getInt(TBL_COLUMN_ID),
+                        rs.getString(TBL_COLUMN_CATEGORY_NAME),
+                        rs.getString(TBL_COLUMN_NAME_SHORT),
+                        rs.getString(TBL_COLUMN_NAME_FULL),
+                        rs.getString(TBL_COLUMN_DESCRIPTION),
+                        rs.getString(TBL_COLUMN_MANUFACTURER),
+                        rs.getBigDecimal(TBL_COLUMN_PRICE),
+                        rs.getString(TBL_COLUMN_STATE),
+                        rs.getDouble(TBL_COLUMN_RATING),
+                        rs.getInt(TBL_COLUMN_COUNT)
                 ));
             }
 
