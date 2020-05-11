@@ -24,7 +24,7 @@ public class UserDAOImpl implements UserDAO {
     private static final String TBL_COLUMN_LOGIN = "login";
     private static final String TBL_COLUMN_STATE = "state";
 
-    private static ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     private static final String INSERT_USER_SQL = "insert into users(login,password,name,surname,phone,email,address,date_of_birth,state_id,role_id) values(?,?,?,?,?,?,?,?,?,?)";
     private static final String SIGN_IN_SQL = "select u.*, r.DESCRIPTION as role from ishop.users u join ishop.roles r on u.role_id = r.id where login = ? and password = ?";

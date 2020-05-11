@@ -27,7 +27,7 @@ public class ItemDAOImpl implements ItemDAO {
     private static final String TBL_COLUMN_STATE = "STATE";
     private static final String TBL_COLUMN_RATING = "RATING";
 
-    private static ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     private static final String INSERT_ITEM_SQL = "{call ishop.add_new_item(?,?,?,?,?,?,?,?,?)}";
     private static final String UPDATE_ITEM_STATUS_SQL = "update ishop.items set state_id = ? where id = ?";

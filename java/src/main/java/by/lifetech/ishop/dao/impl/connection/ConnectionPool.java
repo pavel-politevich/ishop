@@ -22,7 +22,11 @@ public final class ConnectionPool {
     private String password;
     private int poolSize;
 
-    private volatile static ConnectionPool instance;
+    private static final ConnectionPool instance;
+
+    static {
+        instance = new ConnectionPool();
+    }
 
     private ConnectionPool() {
         DBResourseManager dbResourseManager = DBResourseManager.getInstance();
@@ -39,13 +43,10 @@ public final class ConnectionPool {
     }
 
     public static ConnectionPool getInstance() {
-        if (instance == null) {
-            instance = new ConnectionPool();
-        }
-        return instance;
+         return instance;
     }
 
-    public void initPoolData()  {
+    public void initPoolData() throws ConnectionPoolException {
 
         try {
             Class.forName(driverName);
@@ -58,11 +59,9 @@ public final class ConnectionPool {
                 connectionQueue.add(pooledConnection);
             }
         } catch (SQLException e) {
-            // log
-            // throw new ConnectionPoolException("SQLException in ConnectionPool", e);
+            throw new ConnectionPoolException("SQLException in ConnectionPool", e);
         } catch (ClassNotFoundException e) {
-            // log
-            // throw  new ConnectionPoolException("Can't find database driver class", e);
+            throw  new ConnectionPoolException("Can't find database driver class", e);
         }
 
 
@@ -87,7 +86,7 @@ public final class ConnectionPool {
             connection = connectionQueue.take();
             givenAwayConQueue.add(connection);
         } catch (InterruptedException e) {
-            throw  new ConnectionPoolException("Error connecting to data sourse.", e);
+            throw  new ConnectionPoolException("Error connecting to data source.", e);
         }
         return connection;
     }
@@ -114,15 +113,15 @@ public final class ConnectionPool {
 
     public void closeConnection(Connection con, Statement st) {
         try {
-            con.close();
-        } catch (SQLException e) {
-            //logger.log(Level.ERROR, "Connection isn't return to the pool.");
-        }
-
-        try {
             st.close();
         } catch (SQLException e) {
             //logger.log(Level.ERROR, "Statement isn't closed.");
+        }
+
+        try {
+            con.close();
+        } catch (SQLException e) {
+            //logger.log(Level.ERROR, "Connection isn't return to the pool.");
         }
     }
 

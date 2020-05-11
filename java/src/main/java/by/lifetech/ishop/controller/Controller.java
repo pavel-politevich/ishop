@@ -2,6 +2,7 @@ package by.lifetech.ishop.controller;
 
 import by.lifetech.ishop.controller.command.Command;
 import by.lifetech.ishop.dao.impl.connection.ConnectionPool;
+import by.lifetech.ishop.dao.impl.connection.ConnectionPoolException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -27,7 +28,11 @@ public class Controller extends HttpServlet {
     @Override
     public void init() throws ServletException {
 
-        ConnectionPool.getInstance().initPoolData();
+        try {
+            ConnectionPool.getInstance().initPoolData();
+        } catch (ConnectionPoolException e) {
+            throw new ServletException(e);
+        }
         super.init();
     }
 
@@ -37,11 +42,20 @@ public class Controller extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         req.setCharacterEncoding(CHARACTER_ENCODING);
-        processRequest(req, resp);
+        processGetRequest(req, resp);
         return;
     }
 
-    private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        req.setCharacterEncoding(CHARACTER_ENCODING);
+        processPostRequest(req, resp);
+        return;
+    }
+
+    private void processGetRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String commandName;
         Command executionCommand;
@@ -50,18 +64,16 @@ public class Controller extends HttpServlet {
         executionCommand = provider.getCommand(commandName);
         executionCommand.execute(req,resp);
 
-        if (req.getQueryString() != null) {
-            req.getSession(true).setAttribute("lastRequest", req.getRequestURI() + "?" + req.getQueryString());
-            //System.out.println(req.getRequestURI() + "?" + req.getQueryString());
-        }
-
+        req.getSession(true).setAttribute("lastRequest", req.getRequestURI() + "?" + req.getQueryString());
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void processPostRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        req.setCharacterEncoding(CHARACTER_ENCODING);
-        processRequest(req, resp);
-        return;
+        String commandName;
+        Command executionCommand;
+
+        commandName = req.getParameter(REQUEST_PARAMETER_COMMAND);
+        executionCommand = provider.getCommand(commandName);
+        executionCommand.execute(req,resp);
     }
 }
