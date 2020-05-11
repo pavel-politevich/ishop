@@ -41,16 +41,11 @@ public final class ConnectionPool {
     public static ConnectionPool getInstance() {
         if (instance == null) {
             instance = new ConnectionPool();
-            try {
-                instance.initPoolData();
-            } catch (ConnectionPoolException e) {
-                // log
-            }
         }
         return instance;
     }
 
-    public  void initPoolData() throws ConnectionPoolException {
+    public void initPoolData()  {
 
         try {
             Class.forName(driverName);
@@ -63,9 +58,11 @@ public final class ConnectionPool {
                 connectionQueue.add(pooledConnection);
             }
         } catch (SQLException e) {
-            throw new ConnectionPoolException("SQLException in ConnectionPool", e);
+            // log
+            // throw new ConnectionPoolException("SQLException in ConnectionPool", e);
         } catch (ClassNotFoundException e) {
-            throw  new ConnectionPoolException("Can't find database driver class", e);
+            // log
+            // throw  new ConnectionPoolException("Can't find database driver class", e);
         }
 
 

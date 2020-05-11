@@ -25,7 +25,7 @@ public class RegistrationCommand implements Command {
     private static final String REQUEST_PARAMETER_ADDRESS = "address";
     private static final String REQUEST_PARAMETER_DATE_OF_BIRTH = "dateOfBirth";
     private static final String DATE_PATTERN = "yyyy-MM-dd";
-    private static final String MAIN_PAGE_URI = "WEB-INF/jsp/mainPage.jsp";
+    private static final String REDIRECT_COMMAND = "Controller?command=go_to_main&register=success";
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) {
@@ -51,17 +51,12 @@ public class RegistrationCommand implements Command {
 
             userService.registration(login,password.getBytes(),username,surname,email,phone,address,dateBirth,roleId);
 
-            req.setAttribute("operation", "registration");
-
-            RequestDispatcher dispatcher = req.getRequestDispatcher(MAIN_PAGE_URI);
-            dispatcher.forward(req, resp);
+            resp.sendRedirect(REDIRECT_COMMAND);
 
         } catch (ParseException e) {
             // log
             e.printStackTrace();
         } catch (ServiceException e) {
-            // log
-        } catch (ServletException e) {
             // log
         } catch (IOException e) {
             // log

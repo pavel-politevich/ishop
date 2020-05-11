@@ -1,9 +1,7 @@
 package by.lifetech.ishop.controller;
 
 import by.lifetech.ishop.controller.command.Command;
-import by.lifetech.ishop.controller.command.impl.RegistrationCommand;
-import by.lifetech.ishop.controller.command.impl.SignInCommand;
-import by.lifetech.ishop.controller.command.impl.WrongRequestCommand;
+import by.lifetech.ishop.controller.command.impl.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,8 +11,13 @@ final class CommandProvider {
 
     CommandProvider(){
         repository.put(CommandName.SIGNIN, new SignInCommand());
+        repository.put(CommandName.SIGNOUT, new SignOutCommand());
         repository.put(CommandName.REGISTRATION, new RegistrationCommand());
         repository.put(CommandName.WRONG_REQUEST, new WrongRequestCommand());
+        repository.put(CommandName.CHANGELOCALE, new ChangeLocaleCommand());
+        repository.put(CommandName.GO_TO_LOGIN, new GoToLoginPageCommand());
+        repository.put(CommandName.GO_TO_REGISTER, new GoToRegisterPageCommand());
+        repository.put(CommandName.GO_TO_MAIN, new GoToMainPageCommand());
     }
 
     Command getCommand(String name){
@@ -27,6 +30,7 @@ final class CommandProvider {
         } catch (IllegalArgumentException | NullPointerException e) {
             // log
             command = repository.get(CommandName.WRONG_REQUEST);
+            e.printStackTrace();
         }
         return command;
 

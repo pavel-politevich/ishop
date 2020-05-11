@@ -16,7 +16,8 @@ public class SignInCommand implements Command {
 
     private static final String REQUEST_PARAMETER_USERNAME = "username";
     private static final String REQUEST_PARAMETER_LOGIN = "password";
-    private static final String MAIN_PAGE_URI = "WEB-INF/jsp/mainPage.jsp";
+    private static final String REDIRECT_COMMAND_SUCCESS = "Controller?command=go_to_main&login=success";
+    private static final String REDIRECT_COMMAND_ERROR = "Controller?command=go_to_login&login=fail";
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) {
@@ -31,14 +32,16 @@ public class SignInCommand implements Command {
         try {
             authorizedUser = userService.signIn(login, password);
 
-            req.setAttribute("user", authorizedUser);
+            if (authorizedUser != null) {
+                req.getSession(true).setAttribute("user", authorizedUser);
+                resp.sendRedirect(REDIRECT_COMMAND_SUCCESS);
+            }
+            else {
+                resp.sendRedirect(REDIRECT_COMMAND_ERROR);
+            }
 
-            RequestDispatcher dispatcher = req.getRequestDispatcher(MAIN_PAGE_URI);
-            dispatcher.forward(req, resp);
 
         } catch (ServiceException e) {
-            // log
-        } catch (ServletException e) {
             // log
         } catch (IOException e) {
             // log

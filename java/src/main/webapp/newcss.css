@@ -1,0 +1,136 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/*
+    Created on : 08.05.2020, 16:05:12
+    Author     : Pavel.Politevich
+*/
+
+html,
+body {
+  height: 100%;
+}
+#wrap {
+  min-height: 100%;
+}
+main {
+  padding-bottom: 100px;
+}
+footer {
+  margin-top: -45px;
+  height: 45px;
+  padding : 5px;
+  background-color:Yellow;
+  color:Green;
+}
+
+header
+{
+   height: 80px;
+   	background-color:Gray;
+   	color: white;
+   	text-align:left;
+   	font-size: 250%;
+}
+
+.menu_line
+{
+	background-color: yellow;
+	height: 30px;
+	padding-left:10px;
+}
+
+#menu_line td
+{
+	text-align:center;
+}
+
+#menu_line td.right_list
+{
+	text-align:right;
+	padding-right: 15pt;
+}
+
+.header_panel
+{
+	height: 80px;
+	background-color:Gray;
+	color: white;
+	text-align:left;
+	font-size: 250%;
+}
+
+.login_container
+{
+    background-color:Yellow;
+    width: 200px;
+    padding: 50px;
+    margin: auto;
+}
+
+.languages
+{
+    background-color:Yellow;
+    text-align: right;
+    float: right;
+    margin : 15px;
+}
+
+.registration_container
+{
+    background-color:Yellow;
+    width: 300px;
+    padding: 50px;
+    margin: auto;
+}
+
+.registration_container table
+{
+    border :0;
+}
+
+
+.Absolute-Center
+{
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+}
+
+.register_block
+{
+    margin-top: 20px;
+    text-align: center;
+}
+
+.menu_left
+{
+	background-color:Yellow;
+	color: white;
+	width : 80%;
+	padding:10px;
+	height: 300px;
+}
+
+.footer_n
+{
+	background-color:Yellow;
+	color:Green;
+	height:45px;
+	padding:10px;
+}
+
+.menu_itm
+{
+	background-color:Lime;
+	padding-left:5px;
+	padding-bottom:3px;
+}
+
+.login_fail_message
+{
+    color: Red;
+    text-align: center;
+}

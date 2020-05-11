@@ -1,6 +1,7 @@
 package by.lifetech.ishop.controller;
 
 import by.lifetech.ishop.controller.command.Command;
+import by.lifetech.ishop.dao.impl.connection.ConnectionPool;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +16,19 @@ public class Controller extends HttpServlet {
 
     public Controller() {
         super();
+    }
+
+    @Override
+    public void destroy() {
+        ConnectionPool.getInstance().dispose();
+        super.destroy();
+    }
+
+    @Override
+    public void init() throws ServletException {
+
+        ConnectionPool.getInstance().initPoolData();
+        super.init();
     }
 
     private final CommandProvider provider = new CommandProvider();
@@ -36,10 +50,18 @@ public class Controller extends HttpServlet {
         executionCommand = provider.getCommand(commandName);
         executionCommand.execute(req,resp);
 
+        if (req.getQueryString() != null) {
+            req.getSession(true).setAttribute("lastRequest", req.getRequestURI() + "?" + req.getQueryString());
+            //System.out.println(req.getRequestURI() + "?" + req.getQueryString());
+        }
+
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+
+        req.setCharacterEncoding(CHARACTER_ENCODING);
+        processRequest(req, resp);
+        return;
     }
 }
