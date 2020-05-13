@@ -1,5 +1,6 @@
 package by.lifetech.ishop.dao.impl;
 
+import by.lifetech.ishop.bean.Category;
 import by.lifetech.ishop.bean.Item;
 import by.lifetech.ishop.dao.impl.connection.ConnectionPool;
 import by.lifetech.ishop.dao.impl.connection.ConnectionPoolException;
@@ -24,6 +25,7 @@ public class ItemDAOImpl implements ItemDAO {
     private static final String TBL_COLUMN_ITEM_ID = "item_id";
     private static final String TBL_COLUMN_ID = "ID";
     private static final String TBL_COLUMN_CATEGORY_NAME = "CATEGORY_NAME";
+    private static final String TBL_COLUMN_CATEGORY_DESC = "CATEGORY_DESC";
     private static final String TBL_COLUMN_STATE = "STATE";
     private static final String TBL_COLUMN_RATING = "RATING";
 
@@ -32,6 +34,7 @@ public class ItemDAOImpl implements ItemDAO {
     private static final String INSERT_ITEM_SQL = "{call ishop.add_new_item(?,?,?,?,?,?,?,?,?)}";
     private static final String UPDATE_ITEM_STATUS_SQL = "update ishop.items set state_id = ? where id = ?";
     private static final String GET_ITEMS_BY_STATE = "SELECT i.ID, i.NAME_SHORT, i.NAME_FULL, i.DESCRIPTION, i.MANUFACTURER, i.PRICE, st.COUNT, dis.NAME as STATE, cat.CATEGORY_NAME, (select IFNULL(AVG(r.rate),0) from ishop.item_reviews r where r.ITEM_ID = i.ID) as RATING FROM ishop.items i join ishop.storage st on st.ITEM_ID = i.ID join ishop.dict_items_state dis on i.STATE_ID = dis.ID join ishop.category cat on i.ID_CATEGORY = cat.ID where i.ID_CATEGORY = ?";
+    private static final String GET_ALL_CATEGORIES_SQL = "select * from ishop.category";
 
 
 
@@ -157,6 +160,43 @@ public class ItemDAOImpl implements ItemDAO {
             throw new DAOException("Error while find Users", e);
         } finally {
             connectionPool.closeConnection(con, ps, rs);
+        }
+    }
+
+    @Override
+    public List<Category> getCategories() throws DAOException {
+        Statement st = null;
+        Connection con = null;
+        ResultSet rs = null;
+
+        try {
+            con = connectionPool.takeConnection();
+            st = con.createStatement();
+
+            rs = st.executeQuery(GET_ALL_CATEGORIES_SQL);
+
+            if (rs == null) {
+                return null;
+            }
+
+            List<Category> categoryList = new ArrayList<>();
+
+            while (rs.next()) {
+                categoryList.add(new Category(
+                        rs.getInt(TBL_COLUMN_ID),
+                        rs.getString(TBL_COLUMN_CATEGORY_NAME),
+                        rs.getString(TBL_COLUMN_CATEGORY_DESC)
+                ));
+            }
+
+            return categoryList;
+
+        } catch (ConnectionPoolException e) {
+            throw new DAOException("Error in Connection pool while find Categories", e);
+        } catch (SQLException e) {
+            throw new DAOException("Error while find Categories", e);
+        } finally {
+            connectionPool.closeConnection(con, st, rs);
         }
     }
 }

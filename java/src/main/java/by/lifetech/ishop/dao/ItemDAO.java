@@ -1,5 +1,6 @@
 package by.lifetech.ishop.dao;
 
+import by.lifetech.ishop.bean.Category;
 import by.lifetech.ishop.bean.Item;
 import by.lifetech.ishop.dao.exception.DAOException;
 
@@ -14,4 +15,6 @@ public interface ItemDAO {
     void updateItemBalance(int itemId, int delta) throws DAOException;
 
     List<Item> findItemsByCategory(int categoryID) throws DAOException;
+
+    List<Category> getCategories() throws DAOException;
 }

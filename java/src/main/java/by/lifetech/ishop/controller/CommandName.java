@@ -8,5 +8,6 @@ public enum CommandName {
     CHANGELOCALE,
     GO_TO_LOGIN,
     GO_TO_REGISTER,
-    GO_TO_MAIN
+    GO_TO_MAIN,
+    GET_ITEMS
 }

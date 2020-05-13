@@ -21,6 +21,10 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+
+  <listener>
+    <listener-class>by.lifetech.ishop.controller.ShopCtxListener</listener-class>
+  </listener>
 </web-app>
 
 

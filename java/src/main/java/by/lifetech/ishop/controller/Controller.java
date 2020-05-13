@@ -1,8 +1,6 @@
 package by.lifetech.ishop.controller;
 
 import by.lifetech.ishop.controller.command.Command;
-import by.lifetech.ishop.dao.impl.connection.ConnectionPool;
-import by.lifetech.ishop.dao.impl.connection.ConnectionPoolException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,18 +19,11 @@ public class Controller extends HttpServlet {
 
     @Override
     public void destroy() {
-        ConnectionPool.getInstance().dispose();
         super.destroy();
     }
 
     @Override
     public void init() throws ServletException {
-
-        try {
-            ConnectionPool.getInstance().initPoolData();
-        } catch (ConnectionPoolException e) {
-            throw new ServletException(e);
-        }
         super.init();
     }
 
@@ -78,4 +69,5 @@ public class Controller extends HttpServlet {
 
         executionCommand.execute(req,resp);
     }
+
 }
