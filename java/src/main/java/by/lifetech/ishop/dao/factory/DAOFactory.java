@@ -6,7 +6,7 @@ import by.lifetech.ishop.dao.impl.ItemDAOImpl;
 import by.lifetech.ishop.dao.impl.UserDAOImpl;
 
 public final class DAOFactory {
-    private static volatile DAOFactory instance;
+    private static final DAOFactory instance;
 
     static {
         instance = new DAOFactory();

@@ -33,30 +33,26 @@ public class UserDAOImpl implements UserDAO {
 
     public  UserDAOImpl() {  }
 
-    private static String getMD5Hash(byte[] password) {
+    private static String getMD5Hash(byte[] password) throws NoSuchAlgorithmException {
         byte[] passwordToHash = password;
         String generatedPassword = null;
-        try {
-            // Create MessageDigest instance for MD5
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            //Add password bytes to digest
-            md.update(passwordToHash);
-            //Get the hash's bytes
-            byte[] bytes = md.digest();
-            //This bytes[] has bytes in decimal format;
-            //Convert it to hexadecimal format
-            StringBuilder sb = new StringBuilder();
-            for(int i=0; i< bytes.length ;i++)
-            {
-                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-            }
-            //Get complete hashed password in hex format
-            generatedPassword = sb.toString();
-        }
-        catch (NoSuchAlgorithmException e)
+
+        // Create MessageDigest instance for MD5
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        //Add password bytes to digest
+        md.update(passwordToHash);
+        //Get the hash's bytes
+        byte[] bytes = md.digest();
+        //This bytes[] has bytes in decimal format;
+        //Convert it to hexadecimal format
+        StringBuilder sb = new StringBuilder();
+        for(int i=0; i< bytes.length ;i++)
         {
-            // log
+            sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
         }
+        //Get complete hashed password in hex format
+        generatedPassword = sb.toString();
+
         return generatedPassword;
     }
 
@@ -76,7 +72,7 @@ public class UserDAOImpl implements UserDAO {
             ps.setString(5, phone);
             ps.setString(6, email);
             ps.setString(7, address);
-            ps.setDate(8, (java.sql.Date) new java.sql.Date(birthDate.getTime()));
+            ps.setDate(8, new java.sql.Date(birthDate.getTime()));
             ps.setInt(9, 1);
             ps.setInt(10, roleId);
 
@@ -87,6 +83,8 @@ public class UserDAOImpl implements UserDAO {
             throw new DAOException("Error in Connection pool while adding new User", e);
         } catch (SQLException e) {
             throw new DAOException("Error while adding new User", e);
+        } catch (NoSuchAlgorithmException e) {
+            throw new DAOException("Password hashing error", e);
         } finally {
             connectionPool.closeConnection(con, ps);
         }
@@ -129,6 +127,8 @@ public class UserDAOImpl implements UserDAO {
             throw new DAOException("Error in Connection pool while authorize User", e);
         } catch (SQLException e) {
             throw new DAOException("Error while authorize User", e);
+        } catch (NoSuchAlgorithmException e) {
+            throw new DAOException("Password hashing error", e);
         } finally {
             connectionPool.closeConnection(con, ps, rs);
         }

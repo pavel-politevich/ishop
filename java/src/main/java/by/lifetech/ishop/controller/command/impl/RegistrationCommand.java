@@ -5,8 +5,6 @@ import by.lifetech.ishop.service.UserService;
 import by.lifetech.ishop.service.exception.ServiceException;
 import by.lifetech.ishop.service.factory.ServiceFactory;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -55,9 +53,8 @@ public class RegistrationCommand implements Command {
 
         } catch (ParseException e) {
             // log
-            e.printStackTrace();
         } catch (ServiceException e) {
-            // log
+            // log (unsuccessful registration)
         } catch (IOException e) {
             // log
         }

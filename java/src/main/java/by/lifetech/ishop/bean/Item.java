@@ -1,9 +1,10 @@
 package by.lifetech.ishop.bean;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public class Item {
+public class Item implements Serializable {
     public static final long serialVersionUID = 3650830057666549258L;
 
     private int itemId;
@@ -31,44 +32,6 @@ public class Item {
     }
 
     public Item () {}
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Item item = (Item) o;
-        return itemId == item.itemId &&
-                Double.compare(item.rating, rating) == 0 &&
-                count == item.count &&
-                Objects.equals(categoryName, item.categoryName) &&
-                Objects.equals(nameShort, item.nameShort) &&
-                Objects.equals(nameFull, item.nameFull) &&
-                Objects.equals(description, item.description) &&
-                Objects.equals(manufacturer, item.manufacturer) &&
-                Objects.equals(price, item.price) &&
-                Objects.equals(stateName, item.stateName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(itemId, categoryName, nameShort, nameFull, description, manufacturer, price, stateName, rating, count);
-    }
-
-    @Override
-    public String toString() {
-        return "Item{" +
-                "itemId=" + itemId +
-                ", categoryName='" + categoryName + '\'' +
-                ", nameShort='" + nameShort + '\'' +
-                ", nameFull='" + nameFull + '\'' +
-                ", description='" + description + '\'' +
-                ", manufacturer='" + manufacturer + '\'' +
-                ", price=" + price +
-                ", stateName='" + stateName + '\'' +
-                ", rating=" + rating +
-                ", count=" + count +
-                '}';
-    }
 
     public int getItemId() {
         return itemId;
@@ -110,5 +73,42 @@ public class Item {
         return count;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Item item = (Item) o;
+        return itemId == item.itemId &&
+                Double.compare(item.rating, rating) == 0 &&
+                count == item.count &&
+                Objects.equals(categoryName, item.categoryName) &&
+                Objects.equals(nameShort, item.nameShort) &&
+                Objects.equals(nameFull, item.nameFull) &&
+                Objects.equals(description, item.description) &&
+                Objects.equals(manufacturer, item.manufacturer) &&
+                Objects.equals(price, item.price) &&
+                Objects.equals(stateName, item.stateName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(itemId, categoryName, nameShort, nameFull, description, manufacturer, price, stateName, rating, count);
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "itemId=" + itemId +
+                ", categoryName='" + categoryName + '\'' +
+                ", nameShort='" + nameShort + '\'' +
+                ", nameFull='" + nameFull + '\'' +
+                ", description='" + description + '\'' +
+                ", manufacturer='" + manufacturer + '\'' +
+                ", price=" + price +
+                ", stateName='" + stateName + '\'' +
+                ", rating=" + rating +
+                ", count=" + count +
+                '}';
+    }
 
 }

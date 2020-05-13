@@ -38,5 +38,6 @@ public class UserServiceImpl implements UserService {
         } catch (DAOException e) {
             throw new ServiceException("Error while registration User", e);
         }
+
     }
 }

@@ -64,7 +64,6 @@ public final class ConnectionPool {
             throw  new ConnectionPoolException("Can't find database driver class", e);
         }
 
-
     }
 
     public  void dispose() {
@@ -76,7 +75,8 @@ public final class ConnectionPool {
             closeConnectionsQueue(givenAwayConQueue);
             closeConnectionsQueue(connectionQueue);
         } catch (SQLException e) {
-            //logger.log(Level.EROR, "Error closing the connection", e);
+            // The method is called when the application terminates, so do not throw an exception.
+            //logger.log(Level.ERROR, "Error closing the connection", e);
         }
     }
 
@@ -95,18 +95,21 @@ public final class ConnectionPool {
         try {
             rs.close();
         } catch (SQLException e) {
+            // The method is called in finally block, so do not throw an exception
             //logger.log(Level.ERROR, "ResultSet isn't closed.");
         }
 
         try {
             st.close();
         } catch (SQLException e) {
+            // The method is called in finally block, so do not throw an exception
             //logger.log(Level.ERROR, "Statement isn't closed.");
         }
 
         try {
             con.close();
         } catch (SQLException e) {
+            // The method is called in finally block, so do not throw an exception
             //logger.log(Level.ERROR, "Connection isn't return to the pool.");
         }
     }
@@ -115,12 +118,14 @@ public final class ConnectionPool {
         try {
             st.close();
         } catch (SQLException e) {
+            // The method is called in finally block, so do not throw an exception
             //logger.log(Level.ERROR, "Statement isn't closed.");
         }
 
         try {
             con.close();
         } catch (SQLException e) {
+            // The method is called in finally block, so do not throw an exception
             //logger.log(Level.ERROR, "Connection isn't return to the pool.");
         }
     }

@@ -1,16 +1,14 @@
 package by.lifetech.ishop.bean;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class AuthorizedUser {
+public class AuthorizedUser implements Serializable {
     public static final long serialVersionUID = 1614365145795883655L;
 
     private String name;
     private String surname;
     private String email;
-
-
-
     private String roleName;
 
     public AuthorizedUser(String name, String surname, String email, String roleName) {
@@ -21,6 +19,20 @@ public class AuthorizedUser {
     }
 
     public AuthorizedUser () {}
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getRoleName() { return roleName; }
 
     @Override
     public boolean equals(Object o) {
@@ -49,18 +61,4 @@ public class AuthorizedUser {
                 ", roleName='" + roleName + '\'' +
                 '}';
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getRoleName() { return roleName; }
 }

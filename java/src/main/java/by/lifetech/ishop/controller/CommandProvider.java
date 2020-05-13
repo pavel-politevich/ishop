@@ -30,7 +30,6 @@ final class CommandProvider {
         } catch (IllegalArgumentException | NullPointerException e) {
             // log
             command = repository.get(CommandName.WRONG_REQUEST);
-            e.printStackTrace();
         }
         return command;
 

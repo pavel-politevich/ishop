@@ -61,6 +61,7 @@ public class Controller extends HttpServlet {
         Command executionCommand;
 
         commandName = req.getParameter(REQUEST_PARAMETER_COMMAND);
+
         executionCommand = provider.getCommand(commandName);
         executionCommand.execute(req,resp);
 
@@ -74,6 +75,7 @@ public class Controller extends HttpServlet {
 
         commandName = req.getParameter(REQUEST_PARAMETER_COMMAND);
         executionCommand = provider.getCommand(commandName);
+
         executionCommand.execute(req,resp);
     }
 }

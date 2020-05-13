@@ -1,9 +1,10 @@
 package by.lifetech.ishop.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class User {
+public class User implements Serializable {
     public static final long serialVersionUID = 1316369952791612931L;
 
     private String login;
@@ -32,6 +33,34 @@ public class User {
 
     public String getName() {
         return name;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public Integer getStateId() {
+        return stateId;
     }
 
     @Override
@@ -68,33 +97,5 @@ public class User {
                 ", dateOfBirth=" + dateOfBirth +
                 ", stateId=" + stateId +
                 '}';
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public Integer getStateId() {
-        return stateId;
     }
 }
