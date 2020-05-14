@@ -8,21 +8,24 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class ChangeLocaleCommand implements Command {
-    @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) {
-        req.getSession(true).setAttribute("local", req.getParameter("local"));
 
-        try {
-            HttpSession session = req.getSession();
-            if (session.getAttribute("lastRequest") != null)
-            {
-                resp.sendRedirect(session.getAttribute("lastRequest").toString());
-            }
-            else {
-                resp.sendRedirect("/");
-            }
-        } catch (IOException e) {
-            // log
+    private static final String REDIRECT_COMMAND = "Controller?command=go_to_main";
+    private static final String LAST_REQUEST_ATTR = "lastRequest";
+    private static final String LOCAL_SESSION_ATTR = "local";
+    private static final String LOCAL_REQ_ATTR = "local";
+
+    @Override
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        req.getSession(true).setAttribute(LOCAL_SESSION_ATTR, req.getParameter(LOCAL_REQ_ATTR));
+
+        HttpSession session = req.getSession();
+        if (session.getAttribute(LAST_REQUEST_ATTR) != null)
+        {
+            resp.sendRedirect(session.getAttribute(LAST_REQUEST_ATTR).toString());
         }
+        else {
+            resp.sendRedirect(REDIRECT_COMMAND);
+        }
+
     }
 }

@@ -11,12 +11,8 @@ public class SignOutCommand implements Command {
     private static final String REDIRECT_COMMAND = "Controller?command=go_to_main";
 
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) {
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         req.getSession(true).removeAttribute("user");
-        try {
-            resp.sendRedirect(REDIRECT_COMMAND);
-        } catch (IOException e) {
-            // log
-        }
+        resp.sendRedirect(REDIRECT_COMMAND);
     }
 }

@@ -31,14 +31,14 @@
 		<div id="wrap">
 
 			<header>
-                <jsp:include page="/WEB-INF/jsp/header.jsp" />
+                <jsp:include page="/WEB-INF/jsp/_header.jsp" />
 			</header>
 
 			<main>
 
 				<br />
 
-				<jsp:include page="/WEB-INF/jsp/menuTop.jsp" />
+				<jsp:include page="/WEB-INF/jsp/_menuTop.jsp" />
 
                 <br /><br />
 

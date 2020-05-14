@@ -29,7 +29,7 @@
                         <a href="Controller?command=go_to_main">${MainName}</a>
                     </td>
                     <td width="8%">
-                        ${CatalogName}
+                        <a href="Controller?command=go_to_catalog">${CatalogName}</a>
                     </td>
                     <td width="8%">
                         ${NewsName}

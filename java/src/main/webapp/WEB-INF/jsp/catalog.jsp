@@ -11,8 +11,6 @@
 			<fmt:setLocale value="${sessionScope.local}" />
 			<fmt:setBundle basename="local" var="loc" />
 
-			<fmt:message bundle="${loc}" key="local.message" var="message" />
-			<fmt:message bundle="${loc}" key="local.registration.success" var="successRegistrationMessage" />
 			<fmt:message bundle="${loc}" key="local.footer.copyright" var="copyright" />
 
 
@@ -45,19 +43,10 @@
 
 						<TD WIDTH=60% VALIGN=TOP>
 
-
-
-							<c:if test="${param.register == 'success'}">
-								<h2>${successRegistrationMessage}</h2>
-							</c:if>
-
-							<c:if test="${param.login == 'success'}">
-								<c:if test = "${user.name != null}">
-									<h2>${message},  <c:out value = "${user.name}"/>
-									</h2>
-								</c:if>
-							</c:if>
-
+                            <h2>Выберите категорию</h2>
+                            <c:forEach items="${applicationScope.categoryList}" var="element">
+                                <p>${element.categoryId} - ${element.name} (${element.description})</p>
+                            </c:forEach>
 
 
 						</TD>

@@ -3,6 +3,7 @@ package by.lifetech.ishop.dao.impl;
 import by.lifetech.ishop.bean.AuthorizedUser;
 import by.lifetech.ishop.bean.InfoUser;
 import by.lifetech.ishop.bean.User;
+import by.lifetech.ishop.dao.exception.DAOUserAlreadyExistsException;
 import by.lifetech.ishop.dao.impl.connection.ConnectionPool;
 import by.lifetech.ishop.dao.impl.connection.ConnectionPoolException;
 import by.lifetech.ishop.dao.UserDAO;
@@ -81,6 +82,9 @@ public class UserDAOImpl implements UserDAO {
 
         } catch (ConnectionPoolException e) {
             throw new DAOException("Error in Connection pool while adding new User", e);
+        } catch (SQLIntegrityConstraintViolationException e) {
+            e.printStackTrace();
+            throw new DAOUserAlreadyExistsException("Login or email already exists", e);
         } catch (SQLException e) {
             throw new DAOException("Error while adding new User", e);
         } catch (NoSuchAlgorithmException e) {

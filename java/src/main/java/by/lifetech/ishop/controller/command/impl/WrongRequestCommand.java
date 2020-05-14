@@ -13,15 +13,9 @@ public class WrongRequestCommand implements Command {
     private static final String ERROR_PAGE_URI = "WEB-INF/jsp/errorPage.jsp";
 
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) {
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         RequestDispatcher dispatcher = req.getRequestDispatcher(ERROR_PAGE_URI);
-        try {
-            dispatcher.forward(req, resp);
-        } catch (ServletException e) {
-            // log
-        } catch (IOException e) {
-            // log
-        }
+        dispatcher.forward(req, resp);
     }
 }

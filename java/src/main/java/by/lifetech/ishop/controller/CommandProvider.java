@@ -18,6 +18,7 @@ final class CommandProvider {
         repository.put(CommandName.GO_TO_LOGIN, new GoToLoginPageCommand());
         repository.put(CommandName.GO_TO_REGISTER, new GoToRegisterPageCommand());
         repository.put(CommandName.GO_TO_MAIN, new GoToMainPageCommand());
+        repository.put(CommandName.GO_TO_CATALOG, new GoToCatalogPageCommand());
         repository.put(CommandName.GET_ITEMS, new GetItemsCommand());
     }
 

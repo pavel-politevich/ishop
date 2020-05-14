@@ -24,6 +24,8 @@
     <fmt:message bundle="${loc}" key="local.registration.address.name" var="addressName" />
     <fmt:message bundle="${loc}" key="local.registration.dateBirth.name" var="dateBirth" />
     <fmt:message bundle="${loc}" key="local.registration.btnSubmit.name" var="btnSubmitName" />
+    <fmt:message bundle="${loc}" key="local.registration.fail.message" var="registrationFailMessage" />
+    <fmt:message bundle="${loc}" key="local.registration.fail.unique.message" var="registrationFailUnique" />
 
 
 
@@ -33,16 +35,23 @@
 <div id="wrap">
 
 	<header>
-        <jsp:include page="/WEB-INF/jsp/header.jsp" />
+        <jsp:include page="/WEB-INF/jsp/_header.jsp" />
     </header>
 
 
     <main>
         <br />
 
-        <jsp:include page="/WEB-INF/jsp/menuTop.jsp" />
+        <jsp:include page="/WEB-INF/jsp/_menuTop.jsp" />
 
 		<br />
+
+        <c:if test="${param.register == 'error'}">
+            <h2 class="login_fail_message">${registrationFailMessage}</h2>
+        </c:if>
+        <c:if test="${param.error == 'unique'}">
+            <h2 class="login_fail_message">${registrationFailUnique}</h2>
+        </c:if>
 
 		<div class="registration_container">
 			<form action="Controller" method="post">
@@ -54,7 +63,7 @@
 							<label for="login">${loginNameLbl}</label>
 						</td>
 						<td>
-							<input type="text" id="login" name="login" required>
+							<input type="text" id="login" name="login" >
 								<br />
 								<br />
 						</td>
@@ -65,7 +74,7 @@
 							<label for="password">${passwordName}</label>
 						</td>
 						<td>
-							<input type="password" id="psw" name="password" required>
+							<input type="password" id="psw" name="password" >
 								<br />
 								<br />
 						</td>
@@ -76,7 +85,7 @@
 							<label for="username">${firstName}</label>
 						</td>
 						<td>
-							<input type="text" id="username" name="username" required>
+							<input type="text" id="username" name="username" >
 								<br />
 								<br />
 						</td>
@@ -87,7 +96,7 @@
 							<label for="surname">${lastName}</label>
 						</td>
 						<td>
-							<input type="text" id="surname" name="surname" required>
+							<input type="text" id="surname" name="surname" >
 								<br />
 								<br />
 						</td>
@@ -98,7 +107,7 @@
 							<label for="email">${emailName}</label>
 						</td>
 						<td>
-							<input type="email" id="email" name="email" required>
+							<input type="email" id="email" name="email" >
 								<br />
 								<br />
 						</td>
@@ -109,7 +118,7 @@
 							<label for="phone">${phoneName}</label>
 						</td>
 						<td>
-							<input type="text" id="phone" name="phone" required>
+							<input type="text" id="phone" name="phone" >
 								<br />
 								<br />
 						</td>
@@ -120,7 +129,7 @@
 							<label for="address">${addressName}</label>
 						</td>
 						<td>
-							<input type="text" id="address" name="address" required>
+							<input type="text" id="address" name="address" >
 								<br />
 								<br />
 						</td>
@@ -131,7 +140,7 @@
 							<label for="dateOfBirth">${dateBirth}</label>
 						</td>
 						<td>
-							<input type="date" id="dateOfBirth" name="dateOfBirth" required>
+							<input type="date" id="dateOfBirth" name="dateOfBirth" >
 								<br />
 								<br />
 						</td>

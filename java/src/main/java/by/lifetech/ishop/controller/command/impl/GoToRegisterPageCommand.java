@@ -13,14 +13,8 @@ public class GoToRegisterPageCommand implements Command {
     private static final String REGISTRATION_PAGE_URI = "WEB-INF/jsp/registration.jsp";
 
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) {
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher = req.getRequestDispatcher(REGISTRATION_PAGE_URI);
-        try {
-            dispatcher.forward(req, resp);
-        } catch (ServletException e) {
-            // log
-        } catch (IOException e) {
-            // log
-        }
+        dispatcher.forward(req, resp);
     }
 }

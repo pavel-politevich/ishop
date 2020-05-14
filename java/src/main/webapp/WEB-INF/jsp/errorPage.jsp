@@ -13,12 +13,6 @@
 			<fmt:setLocale value="${sessionScope.local}" />
 			<fmt:setBundle basename="local" var="loc" />
 
-			<fmt:message bundle="${loc}" key="local.locbutton.name.ru"
-	var="ru_button" />
-			<fmt:message bundle="${loc}" key="local.locbutton.name.en"
-	var="en_button" />
-
-			<fmt:message bundle="${loc}" key="local.header.name" var="headerName" />
 			<fmt:message bundle="${loc}" key="local.footer.copyright" var="copyright" />
 
 			<fmt:message bundle="${loc}" key="local.errorPage.message" var="errorText" />
@@ -33,31 +27,7 @@
 		<div id="wrap">
 
 			<header>
-${headerName}
-				<div class="languages">
-					<table>
-						<tr>
-							<td>
-								<form action="Controller" method="post">
-									<input type="hidden" name="command" value="changeLocale" />
-									<input type="hidden" name="local" value="ru" />
-									<input type="submit"
-						value="${ru_button}" />
-									<br />
-								</form>
-							</td>
-							<td>
-								<form action="Controller" method="post">
-									<input type="hidden" name="command" value="changeLocale" />
-									<input type="hidden" name="local" value="en" />
-									<input type="submit"
-						value="${en_button}" />
-									<br />
-								</form>
-							</td>
-						</tr>
-					</table>
-				</div>
+                <jsp:include page="/WEB-INF/jsp/_header.jsp" />
 			</header>
 
 			<main>

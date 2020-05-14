@@ -1,6 +1,7 @@
 package by.lifetech.ishop.controller.command.impl;
 
 import by.lifetech.ishop.controller.command.Command;
+import by.lifetech.ishop.dao.exception.DAOUserAlreadyExistsException;
 import by.lifetech.ishop.service.UserService;
 import by.lifetech.ishop.service.exception.ServiceException;
 import by.lifetech.ishop.service.factory.ServiceFactory;
@@ -23,10 +24,12 @@ public class RegistrationCommand implements Command {
     private static final String REQUEST_PARAMETER_ADDRESS = "address";
     private static final String REQUEST_PARAMETER_DATE_OF_BIRTH = "dateOfBirth";
     private static final String DATE_PATTERN = "yyyy-MM-dd";
-    private static final String REDIRECT_COMMAND = "Controller?command=go_to_main&register=success";
+    private static final String REDIRECT_COMMAND_SUCCESS = "Controller?command=go_to_main&register=success";
+    private static final String REDIRECT_COMMAND_ERROR = "Controller?command=go_to_register&register=error";
+    private static final String REDIRECT_COMMAND_ERROR_DUPLICATE = "Controller?command=go_to_register&error=unique";
 
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) {
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         String login = req.getParameter(REQUEST_PARAMETER_LOGIN);
         String password = req.getParameter(REQUEST_PARAMETER_PASSWORD);
@@ -41,22 +44,31 @@ public class RegistrationCommand implements Command {
 
         SimpleDateFormat sdf = new java.text.SimpleDateFormat(DATE_PATTERN);
 
+        ServiceFactory serviceFactory = ServiceFactory.getInstance();
+        UserService userService = serviceFactory.getUserService();
+
+        Boolean registrationResult;
+
         try {
             Date dateBirth = sdf.parse(dateOfBirth);
+            registrationResult = userService.registration(login, password.getBytes(), username, surname, email, phone, address, dateBirth, roleId);
 
-            ServiceFactory serviceFactory = ServiceFactory.getInstance();
-            UserService userService = serviceFactory.getUserService();
-
-            userService.registration(login,password.getBytes(),username,surname,email,phone,address,dateBirth,roleId);
-
-            resp.sendRedirect(REDIRECT_COMMAND);
-
+            if (registrationResult) {
+                resp.sendRedirect(REDIRECT_COMMAND_SUCCESS);
+            }
+            else {
+                resp.sendRedirect(REDIRECT_COMMAND_ERROR);
+            }
         } catch (ParseException e) {
-            // log
+            resp.sendRedirect(REDIRECT_COMMAND_ERROR);
         } catch (ServiceException e) {
-            // log (unsuccessful registration)
-        } catch (IOException e) {
-            // log
+            if (e.getCause() instanceof DAOUserAlreadyExistsException) {
+                resp.sendRedirect(REDIRECT_COMMAND_ERROR_DUPLICATE);
+            }
+            else {
+                // log (unsuccessful registration)
+                resp.sendRedirect(REDIRECT_COMMAND_ERROR);
+            }
         }
 
     }

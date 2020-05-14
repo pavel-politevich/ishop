@@ -14,7 +14,7 @@ public class UserServiceImpl implements UserService {
     public AuthorizedUser signIn(String login, byte[] password) throws ServiceException {
         DAOFactory factory = DAOFactory.getInstance();
 
-        if (login == null || password == null) {
+        if (login.equals("") || password.equals("")) {
             return null;
         }
 
@@ -28,16 +28,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void registration(String login, byte[] password, String name, String surname, String email, String phone, String address, Date birthDate, int roleId) throws ServiceException {
-        DAOFactory factory = DAOFactory.getInstance();
+    public boolean registration(String login, byte[] password, String name, String surname, String email, String phone, String address, Date birthDate, int roleId) throws ServiceException {
 
+        if (login.equals("") || password.equals("") || email.equals("") || birthDate.equals("")) {
+            return false;
+        }
+
+        DAOFactory factory = DAOFactory.getInstance();
         UserDAO userDAO = factory.getUserDAO();
 
         try {
             userDAO.registration(login, password, name, surname, email, phone, address, birthDate, roleId);
-        } catch (DAOException e) {
+        }
+        catch (DAOException e) {
             throw new ServiceException("Error while registration User", e);
         }
 
+        return true;
     }
 }

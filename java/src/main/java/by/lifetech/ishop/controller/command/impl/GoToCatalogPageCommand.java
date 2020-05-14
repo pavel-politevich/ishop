@@ -8,13 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class GoToLoginPageCommand implements Command {
-
-    private static final String LOGIN_PAGE_URI = "WEB-INF/jsp/login.jsp";
+public class GoToCatalogPageCommand implements Command {
+    private static final String CATALOG_PAGE_URI = "WEB-INF/jsp/catalog.jsp";
 
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher dispatcher = req.getRequestDispatcher(LOGIN_PAGE_URI);
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        RequestDispatcher dispatcher = req.getRequestDispatcher(CATALOG_PAGE_URI);
         dispatcher.forward(req, resp);
     }
 }

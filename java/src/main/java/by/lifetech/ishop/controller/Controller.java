@@ -11,28 +11,16 @@ import java.io.IOException;
 public class Controller extends HttpServlet {
 
     private static final String REQUEST_PARAMETER_COMMAND = "command";
-    private static final String CHARACTER_ENCODING = "utf-8";
+    private static final String LAST_REQUEST_PARAM = "lastRequest";
 
     public Controller() {
         super();
-    }
-
-    @Override
-    public void destroy() {
-        super.destroy();
-    }
-
-    @Override
-    public void init() throws ServletException {
-        super.init();
     }
 
     private final CommandProvider provider = new CommandProvider();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        req.setCharacterEncoding(CHARACTER_ENCODING);
         processGetRequest(req, resp);
         return;
     }
@@ -40,13 +28,11 @@ public class Controller extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        req.setCharacterEncoding(CHARACTER_ENCODING);
         processPostRequest(req, resp);
         return;
     }
 
-    private void processGetRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void processGetRequest(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
         String commandName;
         Command executionCommand;
@@ -56,10 +42,10 @@ public class Controller extends HttpServlet {
         executionCommand = provider.getCommand(commandName);
         executionCommand.execute(req,resp);
 
-        req.getSession(true).setAttribute("lastRequest", req.getRequestURI() + "?" + req.getQueryString());
+        req.getSession(true).setAttribute(LAST_REQUEST_PARAM, req.getRequestURI() + "?" + req.getQueryString());
     }
 
-    private void processPostRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void processPostRequest(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
         String commandName;
         Command executionCommand;

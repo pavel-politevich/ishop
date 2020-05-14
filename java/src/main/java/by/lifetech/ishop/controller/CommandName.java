@@ -9,5 +9,6 @@ public enum CommandName {
     GO_TO_LOGIN,
     GO_TO_REGISTER,
     GO_TO_MAIN,
+    GO_TO_CATALOG,
     GET_ITEMS
 }
