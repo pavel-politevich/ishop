@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `ishop` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `ishop`;
 -- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
 --
 -- Host: localhost    Database: ishop
@@ -28,7 +26,7 @@ CREATE TABLE `dict_order_status` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `STATUS_NAME` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,6 +35,7 @@ CREATE TABLE `dict_order_status` (
 
 LOCK TABLES `dict_order_status` WRITE;
 /*!40000 ALTER TABLE `dict_order_status` DISABLE KEYS */;
+INSERT INTO `dict_order_status` VALUES (1,'В корзине'),(2,'Создан'),(3,'Подтвержден'),(4,'Доставлен'),(5,'Отменен');
 /*!40000 ALTER TABLE `dict_order_status` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-11 12:07:15
+-- Dump completed on 2020-05-22 11:03:13

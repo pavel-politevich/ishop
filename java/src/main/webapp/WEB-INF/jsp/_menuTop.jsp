@@ -17,6 +17,8 @@
             <fmt:message bundle="${loc}" key="local.menu.line.catalog" var="CatalogName" />
             <fmt:message bundle="${loc}" key="local.menu.line.news" var="NewsName" />
             <fmt:message bundle="${loc}" key="local.menu.line.delivery" var="DeliveryName" />
+
+            <fmt:message bundle="${loc}" key="local.item.cart.cartname" var="CartName" />
     </head>
 
     <body>
@@ -39,14 +41,15 @@
                     </td>
                     <td class="right_list">
 
-                        <jsp:useBean id="user" class = "by.lifetech.ishop.bean.AuthorizedUser" type="java.lang.Object" scope="session"/>
 
-                        <c:if test = "${user.name != null}">
-                            <c:out value = "${user.name}"/> |
+                        <a href="Controller?command=get_cart">${CartName}</a> |
+
+                        <c:if test = "${sessionScope.user.name != null}">
+                            <c:out value = "${sessionScope.user.name}"/> |
                             <a href="Controller?command=signout">${logoutName}</a>
                         </c:if>
 
-                        <c:if test = "${user.name == null}">
+                        <c:if test = "${sessionScope.user.name == null}">
                             <a href="Controller?command=go_to_login">${loginName}</a>
                         </c:if>
                     </td>

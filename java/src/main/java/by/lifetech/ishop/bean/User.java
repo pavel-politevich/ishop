@@ -7,36 +7,42 @@ import java.util.Objects;
 public class User implements Serializable {
     public static final long serialVersionUID = 1316369952791612931L;
 
+    private int userId;
     private String login;
-    private String password;
     private String name;
     private String surname;
     private String email;
     private String phone;
     private String address;
     private Date dateOfBirth;
-    private Integer stateId;
+    private String state;
+    private String roleName;
 
-    public User(String login, String password, String name, String surname, String email, String phone, String address, Date dateOfBirth, Integer stateId) {
+    public User(int userId, String login, String name, String surname, String email, String phone, String address, Date dateOfBirth, String state, String roleName) {
+        this.userId = userId;
         this.login = login;
-        this.password = password;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.phone = phone;
         this.address = address;
         this.dateOfBirth = dateOfBirth;
-        this.stateId = stateId;
+        this.state = state;
+        this.roleName = roleName;
     }
 
-    public User() {}
+    public User() {    }
 
-    public String getName() {
-        return name;
+    public int getUserId() {
+        return userId;
     }
 
     public String getLogin() {
         return login;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public String getSurname() {
@@ -59,8 +65,12 @@ public class User implements Serializable {
         return dateOfBirth;
     }
 
-    public Integer getStateId() {
-        return stateId;
+    public String getState() {
+        return state;
+    }
+
+    public String getRoleName() {
+        return roleName;
     }
 
     @Override
@@ -68,34 +78,36 @@ public class User implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return login.equals(user.login) &&
-                password.equals(user.password) &&
+        return userId == user.userId &&
+                login.equals(user.login) &&
                 Objects.equals(name, user.name) &&
                 Objects.equals(surname, user.surname) &&
-                Objects.equals(email, user.email) &&
+                email.equals(user.email) &&
                 Objects.equals(phone, user.phone) &&
                 Objects.equals(address, user.address) &&
                 Objects.equals(dateOfBirth, user.dateOfBirth) &&
-                stateId.equals(user.stateId);
+                Objects.equals(state, user.state) &&
+                Objects.equals(roleName, user.roleName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(login, password, name, surname, email, phone, address, dateOfBirth, stateId);
+        return Objects.hash(userId, login, name, surname, email, phone, address, dateOfBirth, state, roleName);
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "login='" + login + '\'' +
-                ", password='" + password + '\'' +
+                "userId=" + userId +
+                ", login='" + login + '\'' +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
-                ", stateId=" + stateId +
+                ", state='" + state + '\'' +
+                ", roleName='" + roleName + '\'' +
                 '}';
     }
 }

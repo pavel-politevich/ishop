@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `ishop` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `ishop`;
 -- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
 --
 -- Host: localhost    Database: ishop
@@ -30,12 +28,13 @@ CREATE TABLE `item_reviews` (
   `ITEM_ID` int DEFAULT NULL,
   `RATE` int DEFAULT NULL,
   `TEXT` varchar(1024) DEFAULT NULL,
+  `EVENT_DATE` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ID`),
   KEY `fk_user_id_idx` (`USER_ID`),
   KEY `fk_reviews_item_id_idx` (`ITEM_ID`),
   CONSTRAINT `fk_reviews_item_id` FOREIGN KEY (`ITEM_ID`) REFERENCES `items` (`ID`),
   CONSTRAINT `fk_rewiews_user_id` FOREIGN KEY (`USER_ID`) REFERENCES `users` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +43,7 @@ CREATE TABLE `item_reviews` (
 
 LOCK TABLES `item_reviews` WRITE;
 /*!40000 ALTER TABLE `item_reviews` DISABLE KEYS */;
-INSERT INTO `item_reviews` VALUES (1,5,2,4,'Молоко как молоко');
+INSERT INTO `item_reviews` VALUES (7,8,41,4,'Обычные яйца, можно было бы и покрупнее сделать','2020-05-20 15:46:22'),(8,8,45,1,'Последний раз привезли черствый, пришлось скормить коту!','2020-05-20 15:47:23'),(9,8,46,5,'Самый вкусный хлеб, который можно купить в этом магазине','2020-05-20 15:48:11'),(10,8,29,3,'Обычный имбирь, но цена - просто космос!!!','2020-05-20 15:48:45'),(11,8,38,5,'Очень вкусно. Отбивные ушли очень быстро)))','2020-05-20 15:50:53'),(12,8,48,2,'Больше никогда такие не куплю и вам не советую','2020-05-20 15:51:47'),(13,10,29,2,'За такую цену ешьте его сами!','2020-05-20 15:53:52'),(15,75,32,4,'Картофель нормальный, но неужели нет белорусского...','2020-05-20 21:29:41');
 /*!40000 ALTER TABLE `item_reviews` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -57,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-11 12:07:16
+-- Dump completed on 2020-05-22 11:03:15

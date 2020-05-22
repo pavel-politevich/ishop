@@ -18,10 +18,12 @@
         <div class="menu_left">
 
             <c:forEach items="${applicationScope.categoryList}" var="element">
-                <p>${element.name}</p>
+                <p><a href="Controller?command=get_items&category=${element.categoryId}">${element.name}</a></p>
             </c:forEach>
 
         </div>
+
+
 
 
 

@@ -12,6 +12,8 @@
 			<fmt:setBundle basename="local" var="loc" />
 
 			<fmt:message bundle="${loc}" key="local.footer.copyright" var="copyright" />
+			<fmt:message bundle="${loc}" key="local.catalog.welcome.message" var="chooseMessage" />
+
 
 
 
@@ -43,9 +45,9 @@
 
 						<TD WIDTH=60% VALIGN=TOP>
 
-                            <h2>Выберите категорию</h2>
+                            <h2>${chooseMessage}</h2>
                             <c:forEach items="${applicationScope.categoryList}" var="element">
-                                <p>${element.categoryId} - ${element.name} (${element.description})</p>
+                                <p><a href="Controller?command=get_items&category=${element.categoryId}">${element.name}</a> (${element.description})</p>
                             </c:forEach>
 
 

@@ -8,7 +8,7 @@
 	<head>
 
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-			<link href="/newcss.css" rel="stylesheet" type="text/css"/>
+			<link href="newcss.css" rel="stylesheet" type="text/css"/>
 
 			<fmt:setLocale value="${sessionScope.local}" />
 			<fmt:setBundle basename="local" var="loc" />

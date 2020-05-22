@@ -10,5 +10,11 @@ public enum CommandName {
     GO_TO_REGISTER,
     GO_TO_MAIN,
     GO_TO_CATALOG,
-    GET_ITEMS
+    GET_ITEMS,
+    SHOW_ITEM,
+    ADD_TO_CART,
+    DEL_FROM_CART,
+    GET_CART,
+    ADD_REVIEW,
+    CONFIRM_ORDER
 }

@@ -20,6 +20,12 @@ final class CommandProvider {
         repository.put(CommandName.GO_TO_MAIN, new GoToMainPageCommand());
         repository.put(CommandName.GO_TO_CATALOG, new GoToCatalogPageCommand());
         repository.put(CommandName.GET_ITEMS, new GetItemsCommand());
+        repository.put(CommandName.SHOW_ITEM, new ShowItemCommand());
+        repository.put(CommandName.ADD_TO_CART, new AddToCartCommand());
+        repository.put(CommandName.DEL_FROM_CART, new DelFromCartCommand());
+        repository.put(CommandName.GET_CART, new GetCartCommand());
+        repository.put(CommandName.ADD_REVIEW, new AddReviewCommand());
+        repository.put(CommandName.CONFIRM_ORDER, new ConfirmOrderCommand());
     }
 
     Command getCommand(String name){

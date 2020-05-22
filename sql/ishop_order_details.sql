@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `ishop` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `ishop`;
 -- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
 --
 -- Host: localhost    Database: ishop
@@ -28,7 +26,7 @@ CREATE TABLE `order_details` (
   `ORDER_ID` int DEFAULT NULL,
   `ITEM_ID` int DEFAULT NULL,
   `COUNT` int DEFAULT NULL,
-  `ITEM_COST` decimal(10,0) DEFAULT NULL,
+  `ITEM_COST` decimal(10,2) DEFAULT NULL,
   KEY `order_det_item_id_idx` (`ITEM_ID`),
   KEY `order_det_order_id_idx` (`ORDER_ID`),
   CONSTRAINT `order_det_item_id` FOREIGN KEY (`ITEM_ID`) REFERENCES `items` (`ID`),
@@ -42,6 +40,7 @@ CREATE TABLE `order_details` (
 
 LOCK TABLES `order_details` WRITE;
 /*!40000 ALTER TABLE `order_details` DISABLE KEYS */;
+INSERT INTO `order_details` VALUES (37,30,1,2.99),(37,41,3,8.85),(37,44,1,1.35),(38,42,2,1.18),(38,30,1,2.99),(39,44,3,4.05);
 /*!40000 ALTER TABLE `order_details` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-11 12:07:14
+-- Dump completed on 2020-05-22 11:03:11

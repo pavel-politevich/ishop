@@ -6,12 +6,14 @@ import java.util.Objects;
 public class AuthorizedUser implements Serializable {
     public static final long serialVersionUID = 1614365145795883655L;
 
+    private int userId;
     private String name;
     private String surname;
     private String email;
     private String roleName;
 
-    public AuthorizedUser(String name, String surname, String email, String roleName) {
+    public AuthorizedUser(int userId, String name, String surname, String email, String roleName) {
+        this.userId = userId;
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -19,6 +21,8 @@ public class AuthorizedUser implements Serializable {
     }
 
     public AuthorizedUser () {}
+
+    public int getUserId() { return  userId; }
 
     public String getName() {
         return name;
@@ -48,7 +52,7 @@ public class AuthorizedUser implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, surname, email, roleName);
+        return Objects.hash(userId, name, surname, email, roleName);
     }
 
 

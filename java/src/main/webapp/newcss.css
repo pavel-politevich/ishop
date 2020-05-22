@@ -133,3 +133,147 @@ header
     color: Red;
     text-align: center;
 }
+
+.item_block
+{
+    width : 80%;
+    padding:10px;
+    margin : 10px;
+    height: 100px;
+    border-style: solid;
+    border-color: gray;
+}
+
+.item_img_big
+{
+    height: 250px;
+    width: 250px;
+    border-style: solid;
+    border-color: yellow;
+}
+
+.item_desc
+{
+    margin-left: 50px;
+}
+
+.item_desc_price
+{
+    color: Red;
+    text-align: left;
+    font-size: 200%;
+}
+
+.cart_item
+{
+    width : 80%;
+    padding:10px;
+    margin : 10px;
+    border-style: solid;
+    border-color: gray;
+}
+
+.rating-result {
+	width: 265px;
+	margin: 0 auto;
+}
+.rating-result span {
+	padding: 0;
+	font-size: 40px;
+	line-height: 1;
+	color: lightgrey;
+	text-shadow: 1px 1px #bbb;
+}
+.rating-result > span:before {
+	content: '★';
+}
+.rating-result > span.active {
+	color: gold;
+	text-shadow: 1px 1px #c60;
+}
+
+.rating-mini {
+	display: inline-block;
+	font-size: 0;
+}
+.rating-mini span {
+	padding: 0;
+	font-size: 20px;
+	line-height: 1;
+	color: lightgrey;
+}
+.rating-mini > span:before {
+	content: '★';
+}
+.rating-mini > span.active {
+	color: gold;
+}
+
+
+.rating-area {
+	overflow: hidden;
+	width: 265px;
+	margin: 0 auto;
+}
+.rating-area:not(:checked) > input {
+	display: none;
+}
+.rating-area:not(:checked) > label {
+	float: right;
+	width: 42px;
+	padding: 0;
+	cursor: pointer;
+	font-size: 50px;
+	line-height: 50px;
+	color: lightgrey;
+	text-shadow: 1px 1px #bbb;
+}
+.rating-area:not(:checked) > label:before {
+	content: '★';
+}
+.rating-area > input:checked ~ label {
+	color: gold;
+	text-shadow: 1px 1px #c60;
+}
+.rating-area:not(:checked) > label:hover,
+.rating-area:not(:checked) > label:hover ~ label {
+	color: gold;
+}
+.rating-area > input:checked + label:hover,
+.rating-area > input:checked + label:hover ~ label,
+.rating-area > input:checked ~ label:hover,
+.rating-area > input:checked ~ label:hover ~ label,
+.rating-area > label:hover ~ input:checked ~ label {
+	color: gold;
+	text-shadow: 1px 1px goldenrod;
+}
+.rate-area > label:active {
+	position: relative;
+}
+
+
+.comment_text
+{
+    resize: none;
+    width: 90%;
+    height: 80px;
+}
+
+.reviewList
+{
+    width: 90%;
+    border: 1px solid yellow;
+    border-spacing: 7px;
+}
+
+.confirm_comment
+{
+    resize: none;
+    width: 300px;
+    height: 80px;
+}
+
+.confirm_tbl
+{
+    border-spacing: 10px 20px;
+}
