@@ -22,6 +22,9 @@
 			<fmt:message bundle="${loc}" key="local.order.confirm.address.text" var="confirmAddress" />
 			<fmt:message bundle="${loc}" key="local.order.confirm.paymentType.text" var="confirmPaymentType" />
 			<fmt:message bundle="${loc}" key="local.order.confirm.submit.button" var="confirmSubmitBtn" />
+			<fmt:message bundle="${loc}" key="local.order.confirm.ok.message1" var="confirmOkMessage1" />
+			<fmt:message bundle="${loc}" key="local.order.confirm.ok.message2" var="confirmOkMessage2" />
+			<fmt:message bundle="${loc}" key="local.order.cart.empty.text" var="cartEmptyText" />
 
 
 
@@ -58,7 +61,11 @@
 
 
                             <c:if test="${empty requestScope.order.itemMap}">
-                                В корзине пусто!
+                                ${cartEmptyText}
+                            </c:if>
+
+                            <c:if test="${param.confirm == 'ok'}">
+                                <h3>${confirmOkMessage1} #${param.orderId}. ${confirmOkMessage2}</h3>
                             </c:if>
 
                             <c:forEach items="${requestScope.order.itemMap}" var="entry">

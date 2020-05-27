@@ -77,7 +77,6 @@ public class UserDAOImpl implements UserDAO {
         } catch (ConnectionPoolException e) {
             throw new DAOException("Error in Connection pool while adding new User", e);
         } catch (SQLIntegrityConstraintViolationException e) {
-            e.printStackTrace();
             throw new DAOUserAlreadyExistsException("Login or email already exists", e);
         } catch (SQLException e) {
             throw new DAOException("Error while adding new User", e);

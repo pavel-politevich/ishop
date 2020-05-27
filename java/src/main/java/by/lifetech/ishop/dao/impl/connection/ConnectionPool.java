@@ -13,6 +13,7 @@ import java.util.concurrent.Executor;
 
 public final class ConnectionPool {
 
+    private static final int POOL_SIZE = 5;
     private BlockingQueue<Connection> connectionQueue;
     private BlockingQueue<Connection> givenAwayConQueue;
 
@@ -38,7 +39,7 @@ public final class ConnectionPool {
         try {
             this.poolSize = Integer.parseInt(dbResourseManager.getValue(DBParameter.DB_POOL_SIZE));
         } catch (NumberFormatException e) {
-            poolSize = 5;
+            poolSize = POOL_SIZE;
         }
     }
 

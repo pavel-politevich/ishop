@@ -16,7 +16,7 @@ public class ConfirmOrderCommand implements Command {
 
     private static final String REDIRECT_COMMAND = "Controller?command=get_cart";
     private static final String ORDER_ID_SESSION_ATTR = "orderId";
-    private static final String CONFIRM_OK = "&confirm=ok";
+    private static final String CONFIRM_OK = "&confirm=ok&orderId=";
     private static final String CONFIRM_ERROR = "&confirm=error";
     private static final String ADDRESS_REQ_ATTR = "address";
     private static final String COMMENT_REQ_ATTR = "comment";
@@ -38,11 +38,9 @@ public class ConfirmOrderCommand implements Command {
             order.setAddress(req.getParameter(ADDRESS_REQ_ATTR));
             order.setComment(req.getParameter(COMMENT_REQ_ATTR));
             order.setPaymentType(req.getParameter(PAYMENT_TYPE_REQ_ATTR));
-            System.out.println(order);
-            System.out.println(req.getParameter(PAYMENT_TYPE_REQ_ATTR));
             orderService.confirmOrder(order);
 
-            resp.sendRedirect(REDIRECT_COMMAND + CONFIRM_OK);
+            resp.sendRedirect(REDIRECT_COMMAND + CONFIRM_OK + orderId);
 
         } catch (ServiceException e) {
             resp.sendRedirect(REDIRECT_COMMAND + CONFIRM_ERROR);

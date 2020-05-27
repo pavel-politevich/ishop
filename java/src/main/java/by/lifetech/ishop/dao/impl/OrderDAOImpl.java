@@ -277,11 +277,6 @@ public class OrderDAOImpl implements OrderDAO {
         } catch (ConnectionPoolException e) {
             throw new DAOException("Error in Connection pool while confirm Order", e);
         } catch (SQLException e) {
-            try {
-                con.rollback();
-            } catch (SQLException ex) {
-                //log
-            }
             throw new DAOException("Error while confirm Order", e);
         } finally {
             connectionPool.closeConnection(con, cs);

@@ -27,6 +27,7 @@ public class RegistrationCommand implements Command {
     private static final String REDIRECT_COMMAND_SUCCESS = "Controller?command=go_to_main&register=success";
     private static final String REDIRECT_COMMAND_ERROR = "Controller?command=go_to_register&register=error";
     private static final String REDIRECT_COMMAND_ERROR_DUPLICATE = "Controller?command=go_to_register&error=unique";
+    private static final int DEFAULT_ROLE_ID = 2;
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -40,7 +41,8 @@ public class RegistrationCommand implements Command {
         String address = req.getParameter(REQUEST_PARAMETER_ADDRESS);
         String dateOfBirth = req.getParameter(REQUEST_PARAMETER_DATE_OF_BIRTH);
 
-        int roleId = 2;
+        // Default role for user
+        int roleId = DEFAULT_ROLE_ID;
 
         SimpleDateFormat sdf = new java.text.SimpleDateFormat(DATE_PATTERN);
 
