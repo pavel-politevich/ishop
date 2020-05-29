@@ -4,6 +4,7 @@ import by.lifetech.ishop.controller.command.Command;
 import by.lifetech.ishop.dao.exception.DAOUserAlreadyExistsException;
 import by.lifetech.ishop.service.UserService;
 import by.lifetech.ishop.service.exception.ServiceException;
+import by.lifetech.ishop.service.exception.ServiceUserAlreadyExistsException;
 import by.lifetech.ishop.service.factory.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
@@ -63,14 +64,11 @@ public class RegistrationCommand implements Command {
             }
         } catch (ParseException e) {
             resp.sendRedirect(REDIRECT_COMMAND_ERROR);
+        } catch (ServiceUserAlreadyExistsException e) {
+            resp.sendRedirect(REDIRECT_COMMAND_ERROR_DUPLICATE);
         } catch (ServiceException e) {
-            if (e.getCause() instanceof DAOUserAlreadyExistsException) {
-                resp.sendRedirect(REDIRECT_COMMAND_ERROR_DUPLICATE);
-            }
-            else {
-                // log (unsuccessful registration)
-                resp.sendRedirect(REDIRECT_COMMAND_ERROR);
-            }
+            // log (unsuccessful registration)
+            resp.sendRedirect(REDIRECT_COMMAND_ERROR);
         }
 
     }

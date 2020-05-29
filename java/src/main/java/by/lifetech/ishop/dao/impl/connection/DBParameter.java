@@ -1,4 +1,4 @@
-package by.lifetech.ishop.dao;
+package by.lifetech.ishop.dao.impl.connection;
 
 public final class DBParameter {
     private DBParameter() {}

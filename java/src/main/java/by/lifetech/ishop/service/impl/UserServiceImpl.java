@@ -3,9 +3,11 @@ package by.lifetech.ishop.service.impl;
 import by.lifetech.ishop.bean.AuthorizedUser;
 import by.lifetech.ishop.dao.UserDAO;
 import by.lifetech.ishop.dao.exception.DAOException;
+import by.lifetech.ishop.dao.exception.DAOUserAlreadyExistsException;
 import by.lifetech.ishop.dao.factory.DAOFactory;
 import by.lifetech.ishop.service.UserService;
 import by.lifetech.ishop.service.exception.ServiceException;
+import by.lifetech.ishop.service.exception.ServiceUserAlreadyExistsException;
 
 import java.util.Date;
 
@@ -39,6 +41,9 @@ public class UserServiceImpl implements UserService {
 
         try {
             userDAO.registration(login, password, name, surname, email, phone, address, birthDate, roleId);
+        }
+        catch (DAOUserAlreadyExistsException e) {
+            throw new ServiceUserAlreadyExistsException("", e);
         }
         catch (DAOException e) {
             throw new ServiceException("Error while registration User", e);

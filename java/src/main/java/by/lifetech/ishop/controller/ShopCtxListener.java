@@ -1,5 +1,6 @@
 package by.lifetech.ishop.controller;
 
+import by.lifetech.ishop.controller.exception.ControllerRuntimeException;
 import by.lifetech.ishop.dao.impl.connection.ConnectionPool;
 import by.lifetech.ishop.dao.impl.connection.ConnectionPoolException;
 import by.lifetech.ishop.service.ItemService;
@@ -29,7 +30,7 @@ public class ShopCtxListener implements ServletContextListener {
             servletContext.setAttribute(CATEGORY_LIST_ATTR, itemService.getCategories());
             servletContext.setAttribute(PAYMENT_TYPES_MAP_ATTR, orderService.getPaymentTypes());
         } catch (ServiceException | ConnectionPoolException e) {
-            throw new RuntimeException(e);
+            throw new ControllerRuntimeException(e);
         }
     }
 

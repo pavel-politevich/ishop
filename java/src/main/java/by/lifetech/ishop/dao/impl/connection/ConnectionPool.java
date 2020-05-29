@@ -1,9 +1,6 @@
 package by.lifetech.ishop.dao.impl.connection;
 
 
-import by.lifetech.ishop.dao.DBParameter;
-import by.lifetech.ishop.dao.DBResourseManager;
-
 import java.sql.*;
 import java.util.Map;
 import java.util.Properties;
