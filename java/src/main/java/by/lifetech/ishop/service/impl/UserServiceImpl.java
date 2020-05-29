@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
             userDAO.registration(login, password, name, surname, email, phone, address, birthDate, roleId);
         }
         catch (DAOUserAlreadyExistsException e) {
-            throw new ServiceUserAlreadyExistsException("", e);
+            throw new ServiceUserAlreadyExistsException("User already exists", e);
         }
         catch (DAOException e) {
             throw new ServiceException("Error while registration User", e);
