@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
         DAOFactory factory = DAOFactory.getInstance();
 
         if (login.equals("") || password.equals("")) {
-            return null;
+            throw new ServiceException("Error while signIn User. Login or Password is null");
         }
 
         UserDAO userDAO = factory.getUserDAO();

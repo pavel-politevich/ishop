@@ -1,7 +1,6 @@
 package by.lifetech.ishop.controller.command.impl;
 
 import by.lifetech.ishop.controller.command.Command;
-import by.lifetech.ishop.dao.exception.DAOUserAlreadyExistsException;
 import by.lifetech.ishop.service.UserService;
 import by.lifetech.ishop.service.exception.ServiceException;
 import by.lifetech.ishop.service.exception.ServiceUserAlreadyExistsException;
@@ -50,18 +49,12 @@ public class RegistrationCommand implements Command {
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
         UserService userService = serviceFactory.getUserService();
 
-        Boolean registrationResult;
-
         try {
             Date dateBirth = sdf.parse(dateOfBirth);
-            registrationResult = userService.registration(login, password.getBytes(), username, surname, email, phone, address, dateBirth, roleId);
+            userService.registration(login, password.getBytes(), username, surname, email, phone, address, dateBirth, roleId);
 
-            if (registrationResult) {
-                resp.sendRedirect(REDIRECT_COMMAND_SUCCESS);
-            }
-            else {
-                resp.sendRedirect(REDIRECT_COMMAND_ERROR);
-            }
+            resp.sendRedirect(REDIRECT_COMMAND_SUCCESS);
+
         } catch (ParseException e) {
             resp.sendRedirect(REDIRECT_COMMAND_ERROR);
         } catch (ServiceUserAlreadyExistsException e) {
